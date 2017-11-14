@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="/haoge/css/swiper.min.css"/>
+		<link rel="stylesheet" type="text/css" href="/haoge/css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="/haoge/css/icon.css" />
+		<link rel="stylesheet" type="text/css" href="/haoge/css/public.css" />
+		<link rel="stylesheet" type="text/css" href="/haoge/css/layout.css" />		
+		<title>豪格商城</title>
+	</head>
+	<body>
+		<script src='//res.wx.qq.com/open/js/jweixin-1.1.0.js'></script>
+        <script language="javascript" src="../addons/ewei_shopv2/static2/js/require.js"></script>
+        <script language="javascript" src="../addons/ewei_shopv2/static2/js/app/config.js?v=3"></script>
+        <script language="javascript" src="../addons/ewei_shopv2/static2/js/dist/jquery-1.11.1.min.js"></script>	
+		<script language="javascript">
+		   
+		   require(['core','tpl'],function(core,tpl){
+		        core.init({
+		            siteUrl: "{$_W['siteroot']}",
+		            baseUrl: "{php echo mobileUrl('ROUTES')}"
+		        });	       
+		    })
+		</script>	
+

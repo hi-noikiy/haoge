@@ -1,0 +1,332 @@
+{template '_header2'}
+<style type="text/css">
+	.detail-footer {
+		line-height: 49px;
+	}
+	
+	.detail-footer>span {
+		color: #ed5252
+	}
+	
+	.order-sel .right input {
+		width: 100%;
+	}
+	
+	#wrapper {
+		padding-bottom: 49px;
+	}
+	
+	.c-6 {
+		color: #666;
+	}
+</style>
+
+<div id="wrapper">
+	<section>
+		<p class="order-t-bg c-f">确定订单后请尽快付款，过时订单将自动取消。</p>
+		<!-- 收货地址 S -->
+		<!-- 未添加任何收货地址 -->
+		<div class="address-container tc f-b no" {if !empty($address)}style='display:none'{/if} onclick="window.location.href='{php echo mobileUrl('member/address/post')}'">
+			请添加收货地址
+		</div>
+
+		<!-- 已添加收货地址 -->
+		<div id="selectaddress" class="address-container"{if empty($address)}style='display:none'{/if}>
+			<input id="addressid" type="hidden" value="{$address['id']}" />
+			<div class="wrap fv">
+				<div class="text fv">
+					<span class="title fl">收货人：<span id="realname">{$address['realname']}</span></span><span id="mobile" class="fr">{$address['mobile']}</span>
+					<p class="fz-24" id="address">{$address['province']}{$address['city']}{$address['area']}{if !empty($new_area) && !empty($address_street)} {$address['street']}{/if} {$address['address']}</p>
+				</div>
+				<i class="iconfont icon-xiala-"></i>
+			</div>
+		</div>
+		<!-- 收货地址 E -->
+		<div id="order" class="order-items">
+			<!-- 这里开始遍历 S-->		
+			<div class="order-item">
+				{loop $goods_list $key $list}
+				{loop $list['goods'] $g}
+	        	<input type='hidden' name='goodsid[]' value="{$g['id']}" />
+	        	<input type='hidden' name='optionid[]' value="{$g['optionid']}" />					
+				<div class="item">
+					<img class="fl" src="{php echo tomedia($g['thumb'])}" onclick="window.location.href='{php echo mobileUrl('goods/detail',array('id'=>$g['goodsid']))}'" />
+					<div class="text" onclick="window.location.href='{php echo mobileUrl('goods/detail',array('id'=>$g['goodsid']))}'">
+						<div class="title over_2">{$g['title']}</div>
+						{if !empty($g['optionid'])}<div class="sub-title"> {$g['optiontitle']}</div>{/if}
+					</div>
+					<div class="bottom clearfix">
+						x{$g['total']}
+					</div>
+				</div>
+				{/loop}
+				{/loop}	
+				<div class="order-sel" style="display: none;" id='coupondiv'><span class="fl left">优惠券</span><span class="fr c-6  selectcoupon"> <i class="iconfont icon-xiala-"></i></span></div>								
+				<div class="sel-style tr">共{$total}件商品&nbsp;&nbsp;小计： <span class="price">￥{php echo number_format($goodsprice,2)}</span></div>
+			</div>
+
+			
+			
+			<div class="order-sel-mar">
+				<div class="order-sel">
+					<span class="fl left c-6">豪格币可抵扣<span id="deduct">{php echo  sprintf("%.2f",$deductmoney);}</span>元</span>
+					<div class="switch-wrap">
+						<div id="switch" class="switch-bot off">
+							<span class="switch-item"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="order-sel-mar">
+			<div class="order-sel"><span class="fl left">商品总额</span><span class="fr c-6">￥:{php echo number_format($goodsprice,2)}</span></div>
+			<div class="order-sel"><span class="fl left">+ 运费</span><span class="fr c-6">￥:{if !empty($exchangeOrder)}{$exchangepostage}{else}{php echo number_format($dispatch_price,2)}{/if}</span></div>
+			<div class="order-sel" style="display: none;"><span class="fl left">- 优惠券</span><span class="fr c-6">￥:0.00</span></div>
+			<div class="order-sel"><span class="fl left">- 豪格币抵扣</span><span class="fr c-6">￥:<span id="deduct2">0.00</span></span></span></div>
+			{if $isdiscount}
+			<div class="order-sel"><span class="fl left">- 商品折扣</span><span class="fr c-6">￥:<span id="discountmoney">{$ratemoney}</span></span></span></div>	
+			{/if}
+		</div>
+	</section>
+</div>
+<div class="detail-footer clearfix tr">
+	共{$total}件商品&nbsp;&nbsp;合计：<span>￥<span id="totalmoney">{if !empty($exchangeOrder)}{$exchangerealprice}{else}{php echo sprintf("%.2f",$realprice);}{/if}</span></span>
+	<div class="wrap fr">
+		<section class="button" id="submit">去结算</section>
+	</div>
+</div>
+<div class="confirm-mask-wrapper"  {if !$IsOnce}style="display: none;"{/if} >
+	<div class="mask"></div>
+	<div class="wrapper" style="overflow: hidden;">
+		<section style="height: 100%;overflow: hidden;">
+			<div class="w" style="position: relative; height: 100%;">
+				<h1 class="title">首次购买需要购买以下一种或以上产品才能成为会员</h1>
+				<div id="wrapper2" style="position: absolute;bottom: 0;top: 82px;overflow: hidden;">
+					<ul id="list" class="list">
+						{loop $bilist $item}
+						<li id="item_{$item['id']}" goodsid="{$item['id']}">
+							<div class="sel active"></div>
+							<div class="item">
+								<div class="img">
+									<img class="block" src="{php echo tomedia($item['thumb']);}" width="74" height="74" />
+								</div>
+								<div class="text">
+									<div class="title">{$item['title']}</div>
+									<div class="price">￥{$item['marketprice']}</div>
+								</div>
+							</div>
+						</li>
+						{/loop}
+					</ul>
+				</div>
+			</div>
+		</section>
+		<div class="btn-wrap">
+			<a id="add-order" href="#" class="item first">确定并加入订单</a>
+			<a href="#" class="item last" onclick="window.location.href='{php echo mobileUrl('')}'">取消购买</a>
+		</div>
+	</div>
+</div>
+{template 'sale/coupon/util/picker'}
+
+<script src="/haoge/js/jquery-1.12.4.min.js"></script>
+<script src="/haoge/js/tools.js"></script>
+<script src="/haoge/js/iscroll.js"></script>
+<script src="/haoge/js/common.js"></script>
+<script type="text/javascript">
+	var myScroll = null;
+	require(['core', 'tpl'], function(core, tpl) {
+		_initScroll();
+		myScroll = new IScroll('#wrapper2', {
+			click: true
+		});
+		//初始化
+		var modal = {
+			params: {
+				orderid: 0,
+				goods: [],
+				coupon_goods: [],
+				merchs: [],
+				iscarry: 0,
+				isverify: 0,
+				isvirtual: 0,
+				addressid: 0,
+				contype: 0,
+				couponid: 0,
+				wxid: 0,
+				wxcardid: 0,
+				wxcode: "",
+				isnodispatch: 0,
+				nodispatch: '',
+				packageid: 0
+			}
+		};
+		
+		modal.getcookie=function(cname){
+			  var name = cname + "=";
+			  var ca = document.cookie.split(';');
+			  for(var i=0; i<ca.length; i++) 
+			  {
+			    var c = ca[i].trim();
+			    if (c.indexOf(name)==0) return c.substring(name.length,c.length);
+			  }
+			  return "";			
+		}
+		modal.setCookie=function(cname,cvalue,exdays){
+			  var d = new Date();
+			  d.setTime(d.getTime()+(exdays*24*60*60*1000));
+			  var expires = "expires="+d.toGMTString();
+			  document.cookie = cname + "=" + cvalue + "; " + expires;
+		}
+		
+		
+		modal.init = function(params) {
+			modal.params = $.extend(modal.params, params || {});
+		}	
+		modal.init({php echo json_encode($createInfo)});
+		//初始化完成
+
+		
+		//选择地址
+		$('#selectaddress').click(function(){
+			modal.setCookie('url','{$gourl}');
+			
+			var a=modal.getcookie('url');
+			console.log(a);
+			var url="{php echo mobileUrl('member/address/selector')}&rand="+Math.random();
+			window.location.href=url;
+		});
+	
+		//购物券选择
+		$('.selectcoupon').click(function(){
+			console.log(1122);
+			var url="{php echo mobileUrl('sale/coupon/util/query')}";
+			core.json(url, {
+				money: 0,
+				type: 0,
+				merchs: 0,
+				goods: modal.params.goods
+			}, function(ret) {
+				console.log(ret);
+			}, false, true);
+		});	
+
+		//结算触发
+		$('#submit').click(function(){
+			var data = {
+				'orderid': modal.params.orderid,
+				'id': modal.params.id,
+				'goods': modal.params.goods,
+				'addressid': $("#addressid").val(),
+				'deduct':0,
+				'submit': true
+			};	
+			if($('#switch').hasClass('on')){
+				data.deduct=1;
+			}
+			var url="{php echo mobileUrl('order/create/submit')}";
+			core.json(url, data, function(ret) {
+				if (ret.status == 0) {
+					core.tip.show(ret.result.message);
+					return
+				}
+				if (ret.status == -1) {
+					core.tip.show(ret.result.message);
+					return
+				}
+				url="{php echo mobileUrl('order/pay')}";
+				location.href = core.getUrl(url, {
+					id: ret.result.orderid
+				})
+			}, false, true);			
+		});
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		$('#switch').find('.switch-item').click(function() {
+			var deductmoney=Number($('#deduct').text());
+			var _parent = $(this).parent();
+			if(_parent.hasClass('off')) {
+				//开启
+				if(deductmoney>0){
+					$('#deduct2').text(deductmoney);
+					totalmoney=parseFloat($('#totalmoney').text());
+					totalmoney=totalmoney-deductmoney;
+					totalmoney=Math.floor(totalmoney * 100) / 100;
+					$('#totalmoney').text(totalmoney);
+					_parent.addClass('on').removeClass('off');
+				}
+			} else {
+				//关闭
+				if(deductmoney>0){
+					$('#deduct2').text(0);
+					totalmoney=parseFloat($('#totalmoney').text());
+					totalmoney=totalmoney+deductmoney;
+					totalmoney=Math.floor(totalmoney * 100) / 100;
+					$('#totalmoney').text(totalmoney);					
+				}
+				_parent.addClass('off').removeClass('on');
+			}
+		})
+		
+		
+		//首次必须购买
+		$('#add-order').click(function() {
+			close();
+			var _ids = [];
+			var _items = $('#list').find('.sel.active').parents('li');
+
+			_items.each(function() {
+				_ids.push($(this).attr('goodsid'));
+			})
+			console.log(_ids);
+			
+			var maingoodsid="{$_GPC['id']}";
+			var maingoodtotal="{$_GPC['total']}";
+			var mainoptionid ="{$_GPC['optionid']}";
+			var url="{php echo mobileUrl('member/cart/cartselect')}";
+			core.json(url, {
+				mainid:maingoodsid,
+				maintotal:maingoodtotal,
+				mainoptionid:mainoptionid,
+				selectids:_ids,
+			}, function(ret) {
+				console.log(ret);
+				if (ret.status == 1) {
+					var url="{php echo mobileUrl('order/create')}";
+					window.location.href = url
+				}
+				else{
+					core.tip.show('不存在必选商品!');
+					setTimeout(function(){
+						window.location.href="{php echo mobileUrl('')}";
+					},1000);
+				}
+
+			}, false, true);			
+			
+			
+			
+		})
+
+		$('#list').delegate('li', 'click', itemclick)
+
+		function itemclick() {
+			$(this).find('.sel').toggleClass('active');
+		}
+		/* 关闭弹出框 */
+		function close() {
+			$('.confirm-mask-wrapper').hide();
+		}		
+	});	
+</script>
+</body>
+
+</html>

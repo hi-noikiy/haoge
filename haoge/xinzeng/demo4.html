@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="../css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="../css/icon.css" />
+		<link rel="stylesheet" type="text/css" href="../css/public.css" />
+		<link rel="stylesheet" type="text/css" href="../css/layout.css" />
+		<title>客户案例</title>
+		<style type="text/css">
+			.banner {
+				position: relative;
+			}
+			.article-wrapper {
+				padding: 1px 20px 42px 20px;
+			}
+			.list-item {
+				margin: 10px 0;
+				padding: 6px 6px 18px 6px;
+				background: #fff;
+			}
+			.banner .text {
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				width: 100%;
+				padding: 0 15px;
+				box-sizing: border-box;
+				line-height: 25px;
+				height: 25px;
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+				color: #fff;
+				background: rgba(0, 0, 0, .3);
+				font-size: 14px;
+			}
+			.content {
+				padding-top: 18px;
+				font-size: 13px;
+				line-height: 20px;
+			}
+			.content a.link{
+				color: #cf1c1c;
+				font-size: 14px;
+				text-decoration: underline;
+			}
+						.flex-btn-wrapper {
+				position: fixed;
+				bottom: 0;
+				width: 100%;
+				display: flex;
+				display: -webkit-flex;
+				border-top: 1px solid #d0d0d0;
+			}
+			.flex-btn-wrapper .item {
+				position: relative;
+				flex: 1;
+				-webkit-flex: 1;
+				line-height: 42px;
+				background-color: #fff;
+				border-right: 1px solid #d0d0d0;
+				color: #333;
+				text-align: center;
+				font-size: 14px;
+			}
+			.flex-btn-wrapper .item .list {
+				position: absolute;
+				left: 0;
+				top: -8px;
+				width: 100%;
+				z-index: -1;
+			}
+			.flex-btn-wrapper .item .list::after {
+				content: '';
+				display: inline;
+				position: absolute;
+				bottom: -5px;
+				margin-left: -5px;
+				border-left: 5px solid transparent;
+				border-right: 5px solid transparent;
+				border-top: 5px solid #fff;
+			}
+			.flex-btn-wrapper .item.active, .flex-btn-wrapper .item .list li.active{
+				background-color: #cf1c1c;
+				color: #fff;
+			}
+			.flex-btn-wrapper .item:last-child {
+				border-right: none;
+			}
+			.flex-btn-wrapper .item .list {
+				transform: translate3d(0, 0, 0) scaleY(0) rotateX(90deg);
+				-webkit-transform: translate3d(0, 0, 0) scaleY(0) rotateX(90deg);
+				transition: all .2s linear;
+				-webkit-transition: all .2s linear;
+				transform-origin: bottom;
+				-webkit-transform-origin: bottom;
+			}
+			.flex-btn-wrapper .item .list.move {
+				transform: translate3d(0, -100%, 0) scaleY(1) rotateX(0);
+				-webkit-transform: translate3d(0, -100%, 0) scaleY(1) rotateX(0);
+			}
+			.flex-btn-wrapper .item .list li {
+				background-color: #fff;
+				color: #333333;
+				border-bottom: 1px solid #d0d0d0;
+			}
+			.flex-btn-wrapper .item .list {
+				border-width: 1px 1px 0 1px;
+				border-style: solid;
+				border-color: #d0d0d0;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="article-wrapper">
+			<div class="list-item">
+				<div class="banner">
+					<img class="img" src="banner.jpg" />
+					<p class="text">天高地广，心远即安</p>
+				</div>
+				<div class="content">
+					这个世界，只要有所向往，心与心靠近一些，便从来不寂寞，你永远不孤单。一朵花一根草一片云一缕阳光都会是寄托。偶尔捎来的一声问候以及久别重逢的小<a class="link" href="#">查看详情</a>
+				</div>
+			</div>
+			<div class="list-item">
+				<div class="banner">
+					<img class="img" src="banner.jpg" />
+					<p class="text">天高地广，心远即安</p>
+				</div>
+				<div class="content">
+					这个世界，只要有所向往，心与心靠近一些，便从来不寂寞，你永远不孤单。一朵花一根草一片云一缕阳光都会是寄托。偶尔捎来的一声问候以及久别重逢的小<a class="link" href="#">查看详情</a>
+				</div>
+			</div>
+		</div>
+		<div class="flex-btn-wrapper">
+			<div class="item">
+				<div class="title">电解水机</div>
+				<ul class="list">
+					<li>客户案例</li>
+					<li>产品介绍</li>
+					<li>产品资质</li>
+					<li>专家认证</li>
+				</ul>
+			</div>
+			<div class="item">
+				<div class="title">电解水机</div>
+				<ul class="list">
+					<li>客户案例</li>
+					<li>产品介绍</li>
+					<li>产品资质</li>
+					<li>专家认证</li>
+				</ul>
+			</div>
+			<div class="item">
+				<div class="title">电解水机</div>
+				<ul class="list">
+					<li>客户案例</li>
+					<li>产品介绍</li>
+					<li>产品资质</li>
+					<li>专家认证</li>
+				</ul>
+			</div>
+			<div class="item">
+				<div class="title">电解水机</div>
+				<ul class="list">
+					<li>客户案例</li>
+					<li>产品介绍</li>
+					<li>产品资质</li>
+					<li>专家认证</li>
+				</ul>
+			</div>
+		</div>
+		
+		<script src="../js/jquery-1.12.4.min.js"></script>
+		<script type="text/javascript">
+			$(function() {
+				var items = $('.flex-btn-wrapper').find('.item');
+				items.click(function (e) {
+					var $this = $(this);
+					var $list = $this.find('.list');
+					$(document).on('click', function() {
+						hide();
+					})
+					
+					items.find('li').unbind('click').bind('click', function(event) {
+						event.stopPropagation();
+						hide();
+						$(this).addClass('active');
+					});
+					e.stopPropagation();
+					if ($list.hasClass('move')) {
+						hide();
+					}else {
+						show();
+						$this.siblings().removeClass('active').find('.list').removeClass('move');
+					}
+					
+					function hide() {
+						$this.removeClass('active');
+						$list.removeClass('move');
+						setTimeout(function() {
+							$list.find('li').removeClass('active');
+							//跳转链接
+						}, 200);
+					}
+					function show() {
+						$this.addClass('active');
+						$list.addClass('move');
+					}
+				})
+				
+			})
+		</script>
+	</body>
+
+</html>

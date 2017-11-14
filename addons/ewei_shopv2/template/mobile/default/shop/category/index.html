@@ -1,0 +1,282 @@
+{template '_header2'}
+<style type="text/css">
+	#wrapper {
+		padding-top: 84px;
+		padding-bottom: 50px;
+	}
+</style>
+<script type="text/javascript">
+	document.title = '商品分类';
+</script>
+<div class="category-container">
+	<form method="post" action="{php echo mobileUrl('goods');}">
+	<div class="category-search-wrapper">
+		<div class="icon"><i class="iconfont icon-xiala-"></i></div>
+		<div class="input"><i class="iconfont icon-sousuo-"></i><input type="search" id="search" name="keywords" value="" placeholder="输入关键字" /></div>
+		<span class="text">搜索</span>
+	</div>
+	</form>
+	<div id="wrapper2" style="background-color: #fff;">
+		<ul id="category-list" class="category-list">
+			{loop $category $value}
+			<li class="item" data-cate="{$value['id']}">
+				<span class="text">{$value['name']}</span>
+			</li>
+			{/loop}
+		</ul>
+	</div>
+</div>
+<div id="wrapper">
+	<div id="loadding"></div>
+	<ul class="list-wrapper" id="catelist">
+		<script id='catelistgoods' type='text/html'>
+		<%each list as g%> 
+		<li>
+			<a href="{php echo mobileUrl('goods/detail')}&id=<%g.id%>">
+				<div class="sq-img">
+					<img class="lazyload" data-original="<%g.thumb%>" width="100%" height="100%" />
+				</div>
+				<div class="text">
+					<h2 class="title over_2"><%g.title%></h2>
+					<section>
+						<div class="price">￥: <%g.marketprice%></div>
+						<div class="number">销量<%g.sales%></div>
+					</section>
+					<img class="add-cart" goodsid="<%g.id%>" src="/haoge/img/add_cart.png" width="25" height="21" />
+				</div>
+			</a>
+		</li>
+		<%/each%>
+		</script>
+	</ul>
+	<div id="empty" class="hide">
+		<div class="empty-wrap empty-data">
+			<img src="/haoge/img/empty_data.png">
+			<p>以科技改善健康，用知识迭代生活</p>
+		</div>
+	</div>
+</div>
+{template 'optionpicker'}
+{template '_footer2'}
+<script src="/haoge/js/jquery.lazyload.min.js"></script>
+<script src="/haoge/js/iscroll.js"></script>
+<script src="/haoge/js/tools.js"></script>
+<script src="/haoge/js/common.js"></script>
+<script type="text/javascript">
+	require(['core', 'tpl'], function(core, tpl) {
+	$(function() {
+		var cateid=Number("{$_GPC['cateid']}");
+		var page=1;
+		//默认选中第一个分类,并且active
+		allcategory=$('#category-list li');
+		var isCom = false;
+		if(allcategory.length>0){
+			if(cateid==''){
+				allcategory.removeClass('active');
+				allcategory.eq(0).addClass('active');
+				cateid=allcategory.eq(0).attr('data-cate');
+				console.log(cateid);
+				getlist();				
+			}
+			else{
+				allcategory.removeClass('active');
+				for (var i=0;i<allcategory.length;i++) {
+					if(allcategory.eq(i).attr('data-cate')==cateid){
+						allcategory.eq(i).addClass('active');
+					}
+				}
+				getlist();
+			}
+			renderLoadding('正在加载...', false, '#loadding');
+		}
+		//某个分类点击记录分类的id
+		allcategory.click(function(){
+			if ($(this).hasClass('active')) return;
+			cateid=$(this).attr('data-cate');
+			console.log(cateid);
+			page=1;
+			isCom = false;
+			getlist();
+			renderLoadding('正在加载...', false, '#loadding');
+		});
+		//获取某个分类的商品列表
+		function getlist(df){
+			var url="{php echo mobileUrl('shop/category/get_list')}";
+			var params={'page':page,'cateid':cateid};
+			removeLoadding();
+			hideEmpty();
+			core.json(url,params,function(ret){
+				ret=ret.result;
+				df && df.resolve();
+				removeLoadding();
+				if(ret.list.length>0){
+					if(page==1){
+						$("#catelist").html(tpl('catelistgoods',ret));
+					}
+					else{
+						$("#catelist").append(tpl('catelistgoods',ret));
+					}					
+				}
+				else
+				{
+					isCom = true;
+					if(page==1){
+						$("#catelist").html(tpl('catelistgoods',ret));
+						showEmpty();
+					}
+					else{
+						renderLoadding('已加载完全部数据', true);
+						$("#catelist").append(tpl('catelistgoods',ret));
+					}					
+				}	
+				lazyloadimg();
+			});
+		}
+		
+		
+			//规格选择器Start
+			var	optionpicker=shopcart('.add-cart',function(df,_this){
+				var goodsid=$(_this).attr('goodsid');
+				var url="{php echo mobileUrl('goods/picker');}";
+				core.json(url,{id:goodsid},function(ret){
+					console.log(ret);
+					$("#mask-container").html(tpl('option-picker',ret.result));
+					df.resolve();
+					
+					var resspecid="";
+					//1.规格选择
+					$('#items dd').click(function(){
+						//active处理
+						_this=$(this);
+						_this.siblings().removeClass('active');
+						_this.addClass('active');
+						
+						//规格图片处理
+						var thumb=_this.attr('data-thumb');
+						if(thumb!=''){
+								$("#wrapper2 .img img").attr('src',thumb);							
+						}
+						
+						
+						
+						//生成specid start(后台的options)
+						var selectitems=$('#items .active');
+						var specid=[];
+						if(selectitems.length>0){
+							for (var i=0;i<selectitems.length;i++) {
+								specid.push(selectitems.eq(i).attr('data-id'));
+							}
+						}
+						specid=specid.sort();
+						//对比和用户选择的数量start
+						for (var i=0;i<ret.result.options.length;i++) {
+									var tempspecid=ret.result.options[i].specs.split('_').sort();
+									if(specid.length==ret.result.specs.length){
+										if(tempspecid.toString()==specid.toString()){
+											$('#wrapper2 .price').text('￥: '+ret.result.options[i].marketprice);
+											resspecid=ret.result.options[i].id;
+										}
+									}
+									else{
+										break;
+									}
+
+						}
+						console.log(resspecid);
+						//对比和用户选择的数量End	
+					})
+					//2.加减处理
+					$('section .reduce').click(function(){
+						nownumber=Number($('.goodsnum').val());
+						console.log(nownumber);
+						nownumber--;
+						if(nownumber>0){
+							$('.goodsnum').val(nownumber);
+						}
+					});
+					$('section .add').click(function(){
+						nownumber=Number($('.goodsnum').val());
+						console.log(nownumber);
+						nownumber++;
+						$('.goodsnum').val(nownumber);
+					});	
+					//3.添加到购物车
+					$('#addcart').click(function(){
+						var url="{php echo mobileUrl('member/cart/add');}";
+						core.json(url, {
+							id: ret.result.goods.id,
+							optionid: resspecid,
+							total: Number($('.goodsnum').val()),
+						}, function(ret) {
+							if (ret.status == 0) {
+								Tools.toast(ret.result.message);
+								if (ret.result.url) {
+									setTimeout(function() {
+										location.href = ret.result.url
+									}, 800)
+								}
+								return
+							}
+							else{
+								Tools.toast('添加成功');
+								optionpicker.hideModal();
+							}
+						}, true, true)						
+					});
+					//4.立即购买
+					$('#buy').click(function(){
+						var url="{php echo mobileUrl('order/create')}";
+						location.href = core.getUrl(url, {
+							id: ret.result.goods.id,
+							optionid:resspecid,
+							total: Number($('.goodsnum').val())
+						})						
+					});
+				
+									
+				});
+			});
+			//规格选择器End		
+
+		
+		//离离原上草,一岁一枯荣
+		const PADDING = 12;
+		var category = $('#category-list'),
+			len = category.find('.item').length;
+		initList();
+		shopcart('.add-cart', function (df, _this) {
+			df.resolve();
+		});
+		infinite(function (df) {
+			if (!isCom) {
+				page++;
+				getlist(df);
+				renderLoadding('正在加载...', false);
+			}
+		});			
+		category.delegate('.item', 'click', itemclick);
+
+		/* 初始化列表宽度 */
+		function initList() {
+			category.find('.item').each(function() {
+				$(this).width(window.innerWidth * 0.27 - PADDING * 2);
+			});
+			var itemWidth = category.find('.item')[0].offsetWidth;
+			category.width(itemWidth * len + 5);
+
+			new IScroll('#wrapper2', {
+				scrollX: true,
+				click: true
+			});
+		}
+
+		/* 规格条目点击 */
+		function itemclick() {
+			$(this).addClass('active').siblings().removeClass('active');
+		}
+	})		
+	})	
+</script>
+</body>
+
+</html>

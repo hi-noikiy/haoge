@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="css/icon.css" />
+		<link rel="stylesheet" type="text/css" href="css/public.css" />
+		<link rel="stylesheet" type="text/css" href="css/layout.css" />
+		<title>我要提现</title>
+		
+		<style type="text/css">
+			.share-list .left {
+				width: 26%;
+			}
+			.share-list .right {
+				width: 74%;
+			}
+			.price {
+				flex: 1;
+				color: #fe1a35;
+			}
+			.price .bouns {
+				margin-left: 15px;
+				color: #999999;
+			}
+			.share-list .right .bouns {
+				margin-left: ;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="cash-wrapper">
+			<div class="item">
+				<div class="title">返利佣金</div>
+				<div class="value">1562.32</div>
+				<div class="text">
+					<div class="title">成功提现佣金</div>
+					<div class="value">6853.21</div>
+				</div>
+			</div>
+			<div class="item">
+				<div class="title">分享佣金</div>
+				<div class="value">5283.21</div>
+				<div class="text">
+					<div class="title">成功提现佣金</div>
+					<div class="value">56.2万</div>
+				</div>
+			</div>
+			<div class="item">
+				<div class="title">分红佣金</div>
+				<div class="value">23.7万</div>
+				<div class="text">
+					<div class="title">成功提现佣金</div>
+					<div class="value">56.2万</div>
+				</div>
+			</div>
+		</div>
+		<div class="share-list">
+			<div class="fl left">
+				累计佣金
+			</div>
+			<div class="fl right fs">
+				<span class="price">86.2万<span class="bouns">所有佣金</span></span>
+				<i class="iconfont icon-xiala-"></i>
+			</div>
+		</div>
+		<div class="share-list">
+			<div class="fl left">
+				已申请佣金
+			</div>
+			<div class="fl right fs">
+				<span class="price">0.00<span class="bouns">已申请佣金</span></span>
+				<i class="iconfont icon-xiala-"></i>
+			</div>
+		</div>
+		<div class="share-list">
+			<div class="fl left">
+				待打款佣金
+			</div>
+			<div class="fl right fs">
+				<span class="price">0.00<span class="bouns">审核通过的佣金</span></span>
+				<i class="iconfont icon-xiala-"></i>
+			</div>
+		</div>
+		<div class="cash-tips">
+			<p style="margin-bottom: 16px;">买家确认收货后，立即获得推广佣金，7天后即可提现</p>
+			<p>注意：可用佣金满<span class="price">1001.00</span>元后才能申请提现</p>
+		</div>
+		<div style="padding: 16px 12px;"><a class="btn btn-primary" {if !$cansettle}onclick="Tools.toast('满 {php echo $this->set['withdraw']}元才能提现');"{else}onclick="window.location.href='{php echo mobileUrl('commission/apply')}'"{/if} >我要提现</a></div>
+		<script src="/haoge/js/jquery-1.12.4.min.js"></script>
+		<script src="/haoge/js/swiper-3.4.2.min.js"></script>
+		<script src="/haoge/js/tools.js"></script>
+		<script src="/haoge/js/iscroll.js"></script>
+		<script src="/haoge/js/common.js"></script>	
+	</body>
+
+</html>

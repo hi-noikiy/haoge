@@ -1,0 +1,49 @@
+{template '_header2'}
+		<style type="text/css">
+			body, html {
+				height: auto;
+			}
+			body {
+				font-size: 14px;
+				line-height: 1.8;
+				background-color: #fff;
+			}
+			.test-report-title {
+			    display: inline-block;
+			    position: relative;
+			    padding-bottom: 10px;
+			    margin: 20px auto;
+			    font-size: 16px;
+			    text-align: center;
+			    font-weight: bold;
+			}
+			.test-report-title::before {
+			    height: 2px;
+			    bottom: 0;
+			}
+			.test-report-title::after {
+			    height: 1px;
+			    bottom: 5px;
+			}
+			.test-report-title::after, .test-report-title::before {
+			    content: '';
+			    position: absolute;
+			    width: 100%;
+			    left: 0;
+			    background-color: #cf1c1c;
+			}
+			.desc-wrapper {
+				padding: 0 20px;
+			}
+		</style>
+		<div class="tc">
+			<h1 class="test-report-title">豪格电解水机会员协议</h1>
+		</div>
+		<div class="desc-wrapper">
+			<p class="desc">
+			{$wapset['MembershipAgreement']}
+			</p>
+		</div>
+	</body>
+
+</html>

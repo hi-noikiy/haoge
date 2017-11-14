@@ -1,0 +1,82 @@
+{template '_header'}
+
+<div class="page-heading"> <h2>会员分组管理</h2> <span><small>除高级副总裁均只需要满足注册下级人数或者业绩达到升级(只计算分享商品)</small></span></div>
+
+<form action="./index.php" method="get" class="form-horizontal form-search" role="form">
+    <input type="hidden" name="c" value="site" />
+    <input type="hidden" name="a" value="entry" />
+    <input type="hidden" name="m" value="ewei_shopv2" />
+    <input type="hidden" name="do" value="web" />
+    <input type="hidden" name="r"  value="member.group" />
+
+    <div class="page-toolbar row m-b-sm m-t-sm">
+        <div class="col-sm-4">
+
+            <div class="input-group-btn">
+                <button class="btn btn-default btn-sm"  type="button" data-toggle='refresh'><i class='fa fa-refresh'></i></button>
+
+            </div> 
+        </div>	
+
+
+        <div class="col-sm-6 pull-right">
+
+            <div class="input-group">				 
+                <input type="text" class="input-sm form-control" name='keyword' value="{$_GPC['keyword']}" placeholder="请输入关键词"> <span class="input-group-btn">
+
+                    <button class="btn btn-sm btn-primary" type="submit"> 搜索</button> </span>
+            </div>
+
+        </div>
+    </div>
+</form>
+
+<form action="" method="post" onsubmit="return formcheck(this)" style="overflow:auto;">
+    <table class="table table-hover table-responsive">
+        <thead>
+            <tr>
+                <th style="width:25px;"><input type='checkbox' /></th>
+                <th style="width:30px;">Id</th>
+                <th style="width:100px;">名称</th>
+                <th style="width:100px;">升级条件</th>               
+                <th style="width: 100px;">团队业绩</th>
+                <th style="width: 100px;">分红占比</th>               
+                <th style="width: 60px;">会员数</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            {loop $list $row}
+            <tr {if $row['id']=='default'}style='background:#eee;{if !empty($_GPC['keyword'])}display:none;{/if}'{/if}>
+                <td>
+                	{if $row['id']!='default'}
+                    	<input type='checkbox' value="{$row['id']}"/>
+                    {/if}
+                </td>
+                <td>{$row['id']}</td>
+                <td>{$row['groupname']}</td>
+                <td>{$row['upnum']}</td>
+                <td>{$row['achievement']}</td>
+                <td>{$row['rate']}%</td>                
+                <td>{$row['membercount']}</td>
+                <td>
+                	{ifp 'member.list'}
+                    	<a class='btn btn-default  btn-sm' href="{php echo webUrl('member/list', array('groupid' => $row['id']))}"><i class='fa fa-users'></i> 查看对应会员</a>
+                    {/if}
+                    {if $row['id']!='default'}
+	                    {ifp 'member.group.edit'}
+	                    	<a data-toggle="ajaxModal" href="{php echo webUrl('member/group/edit', array('id' => $row['id']))}" class="btn btn-default btn-sm" ><i class='fa fa-edit'></i> 修改</a>
+	                    {/if}
+
+                    {/if}
+
+
+            </tr>
+            {/loop}
+
+        </tbody>
+    </table>
+</form>
+{template '_footer'}
+
+

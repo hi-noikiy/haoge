@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="/haoge/css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="/haoge/css/icon.css" />
+		<link rel="stylesheet" type="text/css" href="/haoge/css/public.css" />
+		<link rel="stylesheet" type="text/css" href="/haoge/css/layout.css" />
+		<title>豪格培训学院</title>
+	</head>
+	
+	<style type="text/css">
+		.school-wrapper {
+			display: flex;
+			display: -webkit-flex;
+			flex-wrap: wrap;
+			border-top: 1px solid #e8e8e8;
+			border-left: 1px solid #e8e8e8;
+		}
+		.school-wrapper .item .item-icon img {
+			display: inline-block;
+			width: 65px;
+			height: 65px;
+		}
+		.school-wrapper .item .text {
+			margin-top: 5px;
+		}
+		.school-wrapper .item {
+			display: flex;
+			display: -webkit-flex;
+			align-items: center;
+			-webkit-align-items: center;
+			justify-content: center;
+			-webkit-justify-content: center;
+			flex: 0 0 33.33%;
+			width: 33.33%;
+			padding: 0 15px;
+			height: 125px;
+			line-height: 24px;
+			background-color: #fff;
+			border-bottom: 1px solid #e8e8e8;
+			border-right: 1px solid #e8e8e8;
+			color: #333;
+			text-decoration: none;
+			box-sizing: border-box;
+			font-size: 16px;
+		}
+		.school-wrapper .item:nth-child(2n) {
+			background-color: #e8e8e8;
+		}
+		.title {
+			line-height: 75px;
+			background-color: #c82126;
+			text-align: center;
+			color: #fff;
+			font-size: 16px;
+		}
+	</style>
+
+	<body>
+		<div class="title">豪格电解水益生元</div>
+		
+		<!--电解水应用二级目录-->
+		{if $type==1}
+		<div class="school-wrapper tc">
+			<a href="{php echo mobileurl('article/list')}&id=12" class="item">
+				电解水与尿酸高
+			</a>
+			<a href="{php echo mobileurl('article/list')}&id=31" class="item">
+				电解水与血糖高
+			</a>
+			<a href="{php echo mobileurl('article/list')}&id=32" class="item">
+				电解水与血压高
+			</a>
+			<a href="{php echo mobileurl('article/list')}&id=33" class="item">
+				电解水与便秘
+			</a>
+			<a href="{php echo mobileurl('article/list')}&id=34" class="item">
+				电解水与美容
+			</a>
+			<a href="{php echo mobileurl('article/list')}&id=35" class="item">
+				电解水与孕婴
+			</a>
+			<a href="{php echo mobileurl('article/list')}&id=36" class="item">
+				电解水与茶
+			</a>
+			<a href="{php echo mobileurl('article/list')}&id=37" class="item">
+				电解水与烹饪
+			</a>			
+			<a href="{php echo mobileurl('article/list')}&id=38" class="item">
+				饮水管理
+			</a>			
+		</div>
+		<!--净水器二级目录-->
+		{else if $type==2}
+		<div class="school-wrapper tc">
+			<a href="{php echo mobileurl('article/list')}&id=39" class="item">
+				型号产品介绍
+			</a>
+			<a href="{php echo mobileurl('article/list')}&id=40" class="item">
+				滤芯更换标准
+			</a>
+			<a href="{php echo mobileurl('article/list')}&id=41" class="item">
+				滤芯更换通道
+			</a>
+			<a href="{php echo mobileurl('article/list')}&id=42" class="item">
+				自助更换视频
+			</a>
+			<a href="{php echo mobileurl('article/list')}&id=43" class="item">
+				净水工艺介绍
+			</a>
+			<a href="{php echo mobileurl('article/list')}&id=44" class="item">
+				常见过滤材料介绍
+			</a>
+			<a href="{php echo mobileurl('article/list')}&id=45" class="item">
+				净水器选择建议
+			</a>		
+		</div>		
+		<!--益生元二级目录-->		
+		{else if $type==3}
+		<div class="school-wrapper tc">
+			<a href="{php echo mobileurl('article/list')}&id=46" class="item">
+				什么是益生元
+			</a>
+			<a href="{php echo mobileurl('article/list')}&id=47" class="item">
+				豪格美式益生元
+			</a>
+			<a href="{php echo mobileurl('article/list')}&id=48" class="item">
+				天然魔芋提取
+			</a>
+			<a href="{php echo mobileurl('article/list')}&id=49" class="item">
+				四大优势
+			</a>
+			<a href="{php echo mobileurl('article/list')}&id=50" class="item">
+				六大功效
+			</a>
+			<a href="{php echo mobileurl('article/list')}&id=51" class="item">
+				适用人群
+			</a>	
+		</div>				
+		{/if}
+	</body>
+
+</html>

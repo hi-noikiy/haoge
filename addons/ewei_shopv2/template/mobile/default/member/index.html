@@ -1,0 +1,235 @@
+  {template '_header2'}
+		<style type="text/css">
+			#wrapper {
+				padding-bottom: 50px;
+			}
+			.banner img {
+				width: 100%;
+			}
+		</style>		
+		<script type="text/javascript">
+			document.title = '会员中心';
+		</script>
+		<div id="wrapper">
+			<div class="home-container">
+				<div class="home-top-wrapper">
+					<section class="fs">
+						<div class="side" onclick="window.location.href='{php echo mobileUrl('member/integral')}'">
+							<p class="title">豪格币</p>
+							<p class="value">{php echo number_format($member['credit1'],2)}</p>
+						</div>
+						<div class="center">
+							<div class="img">
+								<img class="head block" width="57" height="57" src="{$member['avatar']}" />
+								<!-- 会员等级对应相应的等级图标   vip2、vip3... -->
+								{if $member['levelid']>0}
+								<img class="level" width="90" height="22" src="/haoge/img/vip{$member['levelid']}.png" />
+								{/if}
+							</div>
+							<div class="text">
+								<div class="title">{$member['nickname']}</div>
+								<div class="sub-title">等级：{$member['groupname']}</div>
+							</div>
+						</div>
+						<div class="side" onclick="window.location.href='{php echo mobileUrl('member/log')}'">
+							<p class="title">零钱</p>
+							<p class="value">{$smallchange}</p>
+						</div>
+					</section>
+				</div>
+				<div class="home-order-wrapper">
+					<div class="home-title clearfix">
+						<span class="fl">商城订单</span>
+						<span class="fr" onclick="window.location.href='{php echo mobileUrl('order')}'">查看全部订单<i class="iconfont icon-xiala-"></i></span>
+					</div>
+					<div class="list">
+						<div class="item" onclick="window.location.href='{php echo mobileUrl('order',array('status'=>0))}'">
+							<div class="img">
+								<i class="iconfont icon-daifukuan-"></i>
+								{if $statics['order_0']>0}<p class="number fhv">{$statics['order_0']}</p>{/if}
+							</div>
+							<div class="text">待付款</div>
+						</div>
+						<div class="item" onclick="window.location.href='{php echo mobileUrl('order',array('status'=>1))}'">
+							<div class="img">
+								<i class="iconfont icon-daifahuo-"></i>
+								{if $statics['order_1']>0}<p class="number fhv">{$statics['order_1']}</p>{/if}
+							</div>
+							<div class="text">待发货</div>
+						</div>
+						<div class="item" onclick="window.location.href='{php echo mobileUrl('order',array('status'=>2))}'">
+							<div class="img">
+								<i class="iconfont icon-daishouhuo-"></i>
+								{if $statics['order_2']>0}<p class="number fhv">{$statics['order_2']}</p>{/if}
+							</div>
+							<div class="text">待收货</div>
+						</div>
+						<div class="item" onclick="window.location.href='{php echo mobileUrl('order',array('status'=>4))}'">
+							<div class="img">
+								<i class="iconfont icon-daituikuan-"></i>
+								{if $statics['order_4']>0}<p class="number fhv">{$statics['order_4']}</p>{/if}
+							</div>
+							<div class="text">待退款</div>
+						</div>
+					</div>
+				</div>
+				<div class="home-item-title clearfix" style="margin-top: 10px;">
+					<span class="fl">基本功能</span>
+				</div>
+				<div class="home-items-wrapper" >
+					
+					<a id="wdhb" class="item">
+						<div class="img">
+							<img src="/haoge/img/wdhb.png"/>
+						</div>
+						<div class="text">我的分享二维码</div>
+					</a>					
+					
+					<a id="peixun"  class="item">
+						<div class="img">
+							<img src="/haoge/img/pxzx.png"/>
+						</div>
+						<div class="text">培训学院</div>
+					</a>		
+					
+					<a id="myteam"  class="item">
+						<div class="img">
+							<img src="/haoge/img/wdtd.png"/>
+						</div>
+						<div class="text">我的团队</div>
+					</a>					
+					
+
+					<a id="fenxiao" class="item">
+						<div class="img">
+							<img src="/haoge/img/fxzx.png"/>
+						</div>
+						<div class="text">财富中心</div>
+					</a>
+
+					<a href="{php echo mobileUrl('goods/welfare')}" class="item">
+						<div class="img">
+							<img src="/haoge/img/hyflq.png"/>
+						</div>
+						<div class="text">会员福利区</div>
+					</a>
+					
+
+					<a id="haogebi" class="item">
+						<div class="img">
+							<img src="/haoge/img/hgbmx.png"/>
+						</div>
+						<div class="text">豪格币明细</div>
+					</a>
+
+					<a href="{php echo mobileUrl('goods/exchange')}" class="item">
+						<div class="img">
+							<img src="/haoge/img/hgbdhzq.png"/>
+						</div>
+						<div class="text">豪格币兑换区</div>
+					</a>
+					
+					
+					<a href="{php echo mobileUrl('member/address')}" class="item">
+						<div class="img">
+							<img src="/haoge/img/shdz.png"/>
+						</div>
+						<div class="text">我的地址</div>
+					</a>					
+					
+
+					<a href="{php echo mobileUrl('member/vipdesc')}" class="item">
+						<div class="img">
+							<img src="/haoge/img/hyxz.png"/>
+						</div>
+						<div class="text">会员须知</div>
+					</a>					
+					
+					
+					<a href="{php echo mobileUrl('member/info')}" class="item">
+						<div class="img">
+							<img src="/haoge/img/bjxx.png"/>
+						</div>
+						<div class="text">个人信息修改</div>
+					</a>					
+
+					<a href="tel:{$wapset['telus']}" class="item">
+						<div class="img">
+							<img src="/haoge/img/lxwm.png"/>
+						</div>
+						<div class="text">联系我们</div>
+					</a>
+
+
+					<a id="gongyingshang" class="item">
+						<div class="img">
+							<img src="/haoge/img/gys.png"/>
+						</div>
+						<div class="text">供应商入口</div>
+					</a>
+				
+				</div>
+			</div>
+		</div>
+		{template '_footer2'}
+		<script src="/haoge/js/iscroll.js"></script>
+		<script src="/haoge/js/common.js"></script>
+		<script src="/haoge/js/tools.js"></script>		
+		<script type="text/javascript">
+			$(function () {
+				
+				_initScroll();
+				var ismember={$member['ismember']};
+				$('#wdhb').click(function(){
+					var url="{php echo mobileUrl('member/qrcode')}";
+					if(ismember!=1){
+						Tools.alert('首次购买订单金额大于500元开启');
+					}
+					else{
+						window.location.href=url;
+					}
+				});
+				
+				$('#peixun').click(function(){
+					var url="{php echo mobileUrl('article')}";
+					window.location.href=url;
+				});
+				$('#gongyingshang').click(function(){
+					Tools.toast('敬请期待!');
+				});	
+				
+				$('#myteam').click(function(){
+					var url="{php echo mobileUrl('member/myteam')}";
+					if(ismember!=1){
+						Tools.alert('首次购买订单金额大于500元开启');
+					}
+					else{
+						window.location.href=url;
+					}
+				});
+				
+				$('#fenxiao').click(function(){
+					var url="{php  echo mobileUrl('commission');}";
+					if(ismember!=1){
+						Tools.alert('首次购买订单金额大于500元开启');
+					}
+					else{
+						window.location.href=url;
+					}					
+				});
+				
+				$('#haogebi').click(function(){
+					var url="{php echo mobileUrl('member/integral')}";	
+					if(ismember!=1){
+						Tools.alert('首次购买订单金额大于500元开启');
+					}
+					else{
+						window.location.href=url;
+					}						
+				});
+				
+			})
+		</script>
+	</body>
+
+</html>

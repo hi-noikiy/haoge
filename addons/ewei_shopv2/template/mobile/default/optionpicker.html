@@ -1,0 +1,53 @@
+<div class="mask hide close-hook"></div>
+<div id="mask-container" class="mask-container hide">
+
+	<script type="text/html" id="option-picker">
+		<div id="wrapper2" class="wrap">
+			<section>
+				<div class="mask-wrap">
+					<div class="img"><img src="<%goods.thumb%>" /></div>
+					<div class="text">
+						<p class="price">￥
+							<%if goods.ispresell>0 && (goods.preselltimeend == 0 || goods.preselltimeend > goods.thistime)%>
+							<%goods.presellprice%>
+							<%else%>
+							<%if goods.maxprice == goods.minprice%>
+							<%goods.minprice%>
+							<%else%>
+							<%goods.minprice%>~
+							<%goods.maxprice%>
+							<%/if%>
+							<%/if%>
+						</p>
+					</div>
+					<i class="icon icon-roundclose close-hook"></i>
+				</div>
+				<div class="mask-center">
+					<div id="items" class="mask-center-div">
+						<%each specs as spec%>
+						<dl>
+							<dt class="over_1"><%spec.title%></dt>
+							 <%each spec.items as item%>
+								<dd class="" data-id="<%item.id%>" data-thumb="<%item.thumb%>"><%item.title%></dd>
+							<%/each%>
+						</dl>
+						<%/each%>
+					</div>
+					<div class="number">
+						<span class="fl">数量</span>
+						<section class="fr">
+							<span class="reduce">-</span>
+							<input class="goodsnum" type="number"  value="1" />
+							<span class="add">+</span>
+						</section>
+					</div>
+				</div>
+			</section>
+		</div>
+
+		<div class="mask-bottom">
+			<a href="javascript:;" style="background: #ff9503;" id="addcart">加入购物车</a>
+			<a href="javascript:;" id="buy" style="background: #d01c1d;">立即购买</a>
+		</div>
+	</script>
+</div>

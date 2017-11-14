@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="css/swiper.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="css/icon.css" />
+		<link rel="stylesheet" type="text/css" href="css/public.css" />
+		<link rel="stylesheet" type="text/css" href="css/layout.css" />
+		<title>分享中心</title>
+	</head>
+
+	<body class="share-wrapper">
+		<div class="share-head">
+			<div class="head">
+				<img class="block" width="70" height="70" src="img/replace/list_img.png" />
+			</div>
+			<div class="text">
+				<p class="title">疯狂的三叶草</p>
+				<p class="sub-title">[副总裁]</p>
+			</div>
+			<div class="number">累计佣金：5423.54</div>
+		</div>
+		<div class="share-title-item clearfix">
+			<span class="fl">可提现佣金：<span class="price">456.25</span>元</span>
+			<span class="fr">提现 >></span>
+		</div>
+		<div class="share-list">
+			<div class="fl left">
+				<i class="iconfont icon-tuiguangyongjin-"></i>推广佣金
+			</div>
+			<div class="fl right fs">
+				<span><span class="price">4852.33</span>元</span>
+				<i class="iconfont icon-xiala-"></i>
+			</div>
+		</div>
+		<div class="share-list">
+			<div class="fl left">
+				<i class="iconfont icon-tuiguangdingdan-"></i>推广订单
+			</div>
+			<div class="fl right fs">
+				<span><span class="price">55</span>个</span>
+				<i class="iconfont icon-xiala-"></i>
+			</div>
+		</div>
+		<div class="share-list">
+			<div class="fl left">
+				<i class="iconfont icon-yongjinmingxi-"></i>佣金明细
+			</div>
+			<div class="fl right fs">
+				<span class="sb">佣金明细</span>
+				<i class="iconfont icon-xiala-"></i>
+			</div>
+		</div>
+		<div class="share-list">
+			<div class="fl left">
+				<i class="iconfont icon-wodehaibao-"></i>我的海报
+			</div>
+			<div class="fl right fs">
+				<span class="sb">推广海报</span>
+				<i class="iconfont icon-xiala-"></i>
+			</div>
+		</div>
+		<div class="share-bot-wrapper">
+			我的推荐码 : AD123F4567890F<input id="copy-text" type="hidden" readonly value="AD123F4567890F" onfocus="this.blur()" />
+			<a href="javascript:;" onclick="copy()" class="copy-btn">点击复制</a>
+		</div>
+
+		<script src="js/jquery-1.12.4.min.js"></script>
+		<script src="js/swiper-3.4.2.min.js"></script>
+		<script src="js/tools.js"></script>
+		<script src="js/iscroll.js"></script>
+		<script src="js/common.js"></script>
+		<script type="text/javascript">
+			function copy() {
+				var Url2=document.getElementById("copy-text");
+				Url2.select();
+				document.execCommand("Copy");
+				Tools.toast('已复制，直接粘贴即可');
+			}
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,299 @@
+{template '_header2'}
+<style type="text/css">
+	#wrapper {
+		padding-top: 41px;
+		padding-bottom: 50px;
+	}
+</style>
+<script type="text/javascript">
+	document.title = '全部商品';
+</script>
+<div class="list-title-wrapper">
+	<div id="drop" class="title"><span id="sort">默认排序</span><span class="iconfont icon-xiala-"></span></div>
+	<span id="show-type" class="iconfont icon-liebiao-_fuzhi fr"></span>
+</div>
+<div id="drop-item" class="drop-item hide">
+	<a href="javascript:;" class="item" sort="1">销量从高到低</a>
+	<a href="javascript:;" class="item" sort="2">销量从低到高</a>
+	<a href="javascript:;" class="item" sort="3">价格从高到低</a>
+	<a href="javascript:;" class="item" sort="4">价格从低到高</a>
+</div>
+<div id="wrapper">
+	<ul class="list-wrapper" id="goodslist">
+		<script type='text/html' id='tpl_goods_list'>
+			<%each list as g%>
+			<li>
+				<a>
+					<div class="sq-img" onclick="window.location.href='{php echo mobileUrl('goods/detail')}&id=<%g.id%>'">
+						<img class="lazyload" data-original="<%g.thumb%>" width="100%" height="100%" />
+					</div>
+					<div class="text">
+						<h2 class="title over_2"><%g.title%></h2>
+						<section>
+							<div class="price">￥:
+								<%g.minprice%>
+							</div>
+							<div class="number">销量
+								<%g.sales%>
+							</div>
+						</section>
+						<img class="add-cart" goodsid="<%g.id%>" src="/haoge/img/add_cart.png" width="25" height="21" />
+					</div>
+				</a>
+			</li>
+			<%/each%>
+		</script>
+	</ul>
+	<div id="empty" class="hide">
+		<div class="empty-wrap empty-data">
+			<img src="/haoge/img/empty_data.png">
+			<p>以科技改善健康，用知识迭代生活</p>
+		</div>
+	</div>
+</div>
+{template 'optionpicker'} {template '_footer2'}
+<script src="/haoge/js/jquery-1.12.4.min.js"></script>
+<script src="/haoge/js/jquery.lazyload.min.js"></script>
+<script src="/haoge/js/iscroll.js"></script>
+<script src="/haoge/js/tools.js"></script>
+<script src="/haoge/js/common.js"></script>
+<script type="text/javascript">
+	require(['core', 'tpl'], function(core, tpl) {
+		var defaults = {
+			page: "1",
+			keywords: "{$_GPC['keywords']}",
+			isrecommand: "{$_GPC['isrecommand']}",
+			ishot: "{$_GPC['ishot']}",
+			isnew: "{$_GPC['isnew']}",
+			isdiscount: "{$_GPC['isdiscount']}",
+			issendfree: "{$_GPC['issendfree']}",
+			istime: "{$_GPC['istime']}",
+			cate: "{$_GPC['cate']}",
+			order: "{$_GPC['order']}",
+			by: "{$_GPC['by']}",
+			merchid: "{$_GPC['merchid']}",
+			frommyshop: "{php echo intval($_GPC['frommyshop'])}"
+		};
+	var isCom = false;
+
+		getlist();
+
+		function getlist(df) {
+			var url = "{php echo mobileUrl('goods/get_list1')}";
+			hideEmpty();
+			core.json(url, defaults, function(ret) {
+				console.log(ret);
+				ret = ret.result;
+				df && df.resolve();
+				removeLoadding();
+				if(ret.list.length > 0) {
+					if(defaults.page == 1) {
+						$("#goodslist").html(tpl('tpl_goods_list', ret));
+						isCom = true;
+						renderLoadding('已经加载全部数据', true);
+					} else {
+						$("#goodslist").append(tpl('tpl_goods_list', ret));
+					}
+					defaults.page++;
+				} else {
+					if(defaults.page == 1) {
+						//Tools.toast('已经加载全部数据');
+						showEmpty();
+					} else {
+						isCom = true;
+						renderLoadding('已经加载全部数据', true);
+						//Tools.toast('没有更多数据了');
+					}
+				}
+
+				lazyloadimg();
+			}, true, true)
+		}
+
+		//排序操作
+		$('#drop-item a').click(function(){
+			var sort=Number($(this).attr('sort'));
+			console.log(sort);
+			switch (sort){
+				case 1:
+					defaults.order="sales";
+					defaults.by="desc";
+					break;
+				case 2:
+					defaults.order="sales";
+					defaults.by="asc";				
+					break;
+				case 3:
+					defaults.order="minprice";
+					defaults.by="desc";				
+					break;	
+				case 4:
+					defaults.order="minprice";
+					defaults.by="asc";					
+					break;						
+				default:
+					break;
+			}
+			defaults.page=1;
+			console.log(defaults);
+			getlist();
+		});
+		
+		
+		infinite(function (df) {
+			if (!isCom) {
+				renderLoadding('正在加载中...', false);
+				getlist(df);
+			}
+		});
+
+
+		//规格选择器Start
+		var optionpicker=shopcart('.add-cart', function(df, _this) {
+			var goodsid = $(_this).attr('goodsid');
+			var url = "{php echo mobileUrl('goods/picker');}";
+			core.json(url, {
+				id: goodsid
+			}, function(ret) {
+				console.log(ret);
+				$("#mask-container").html(tpl('option-picker', ret.result));
+				df.resolve();
+
+				var resspecid = "";
+				//1.规格选择
+				$('#items dd').click(function() {
+					//active处理
+					_this = $(this);
+					_this.siblings().removeClass('active');
+					_this.addClass('active');
+
+					//规格图片处理
+					var thumb = _this.attr('data-thumb');
+					if(thumb != '') {
+						$("#wrapper2 .img img").attr('src', thumb);
+					}
+
+					//生成specid start(后台的options)
+					var selectitems = $('#items .active');
+					var specid = [];
+					if(selectitems.length > 0) {
+						for(var i = 0; i < selectitems.length; i++) {
+							specid.push(selectitems.eq(i).attr('data-id'));
+						}
+					}
+					specid = specid.sort();
+					//对比和用户选择的数量start
+					for(var i = 0; i < ret.result.options.length; i++) {
+						var tempspecid = ret.result.options[i].specs.split('_').sort();
+						if(specid.length == ret.result.specs.length) {
+							if(tempspecid.toString() == specid.toString()) {
+								$('#wrapper2 .price').text('￥: ' + ret.result.options[i].marketprice);
+								resspecid = ret.result.options[i].id;
+							}
+						} else {
+							break;
+						}
+
+					}
+					console.log(resspecid);
+					//对比和用户选择的数量End	
+				})
+				//2.加减处理
+				$('section .reduce').click(function() {
+					nownumber = Number($('.goodsnum').val());
+					console.log(nownumber);
+					nownumber--;
+					if(nownumber > 0) {
+						$('.goodsnum').val(nownumber);
+					}
+				});
+				$('section .add').click(function() {
+					nownumber = Number($('.goodsnum').val());
+					console.log(nownumber);
+					nownumber++;
+					$('.goodsnum').val(nownumber);
+				});
+				//3.添加到购物车
+				$('#addcart').click(function() {
+					var url = "{php echo mobileUrl('member/cart/add');}";
+					core.json(url, {
+						id: ret.result.goods.id,
+						optionid: resspecid,
+						total: Number($('.goodsnum').val()),
+					}, function(ret) {
+						if(ret.status == 0) {
+							Tools.toast(ret.result.message);
+							if(ret.result.url) {
+								setTimeout(function() {
+									location.href = ret.result.url
+								}, 800)
+							}
+							return
+						} else {
+							Tools.toast('添加成功');
+							optionpicker.hideModal();
+						}
+					}, true, true)
+				});
+				//4.立即购买
+				$('#buy').click(function() {
+					var url = "{php echo mobileUrl('order/create')}";
+					location.href = core.getUrl(url, {
+						id: ret.result.goods.id,
+						optionid: resspecid,
+						total: Number($('.goodsnum').val())
+					})
+				});
+
+			});
+		});
+		//规格选择器End			
+
+		//床前明月光,疑是地上霜
+		$(function() {
+			var showType = $('#show-type'),
+				list = $('.list-wrapper'),
+				drop = $('#drop'),
+				sort = $('#sort'),
+				dropItem = $('#drop-item');
+			showType.click(showTypeClick);
+			drop.click(dropClick);
+			dropItem.delegate('.item', 'click', function() {
+				sort.text(this.innerText);
+				hideDrop();
+			});
+			shopcart('.add-cart');
+			/* 切换视图回调 */
+			function showTypeClick() {
+				if(list.hasClass('list-wrapper')) {
+					$(this).addClass('icon-liebiao-1').removeClass('icon-liebiao-_fuzhi');
+					list.addClass('list-wrapper-1').removeClass('list-wrapper');
+				} else {
+					$(this).removeClass('icon-liebiao-1').addClass('icon-liebiao-_fuzhi');
+					list.addClass('list-wrapper').removeClass('list-wrapper-1');
+				}
+			}
+
+			/* 筛选事件回调 */
+			function dropClick() {
+				if(dropItem.hasClass('hide')) showDrop();
+				else hideDrop();
+			}
+
+			function showDrop() {
+				var icon = drop.find('.icon-xiala-');
+				dropItem.removeClass('hide');
+				icon.css('transform', 'rotateZ(-180deg)');
+			}
+
+			function hideDrop() {
+				var icon = drop.find('.icon-xiala-');
+				dropItem.addClass('hide');
+				icon.css('transform', 'rotateZ(0)');
+			}
+		})
+	});
+</script>
+</body>
+
+</html>

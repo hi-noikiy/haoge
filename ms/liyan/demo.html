@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <title>demo</title>
+    <link rel="stylesheet" href="demo.css"/>
+</head>
+<script src="jquery-2.2.0.js"></script>
+<script src="demo.js"></script>
+<script src="city-picker.data.js"></script>
+<script src="city-picker.js"></script>
+<body>
+    <div>
+       <div class="nav-top clearfix">
+            <p class="nav-left">
+               <img src="image/nav-back.jpg" alt="back"/>
+               <span>返回</span>
+            </p>
+           <h1>个人资料补充</h1>
+           <p class="nav-right">
+               <img src="image/nav-r.jpg" alt=""/>
+           </p>
+       </div>
+       <div class="nav-banner clearfix">
+                <hr class="line-1" />
+                <span class="nav-banner-left nav-banner-lx"></span>
+                <svg width="10px" height="20px">
+                    <path d="M10,80 q100,120 120,20 q140,-50 160,0" stroke="#cd0000" stroke-width="2" fill="none" />
+                </svg>
+               <div class="nav-banner-dw">
+                <span class="title">补</span><span class="title">充</span><span class="title">资</span><span class="title">料</span>
+               </div>
+                 <span class="nav-banner-right nav-banner-lx"></span>
+               <hr class="line-2" />
+       </div>
+        <div class="content-bgbox">
+        <div class="content-box clearfix">
+            <div class="my-info">
+                <div class="my-info-box">
+                    <span>我的信息</span>
+                </div >
+                <div class="my-social-info">
+                    <div class="my-social-qq clearfix"><span>QQ号码</span><input  class="f_r" type="text" placeholder="请输入您的QQ号码"/></div>
+                    <div class="my-social-wk clearfix"><span>工作单位</span><input class="f_r" type="text" placeholder="请输入您的工作单位"/ ></div>
+                    <div class="my-social-jt clearfix">
+                        <span>家庭地址</span>
+                        <div class="distp f_r" id="distpicker">
+                            <div class="form-group">
+                                <div style="position: relative;">
+                                    <input id="city-picker3" class="form-control" readonly type="text"  data-toggle="city-picker">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="my-social-xx clearfix"><span>详细住址</span><input class="f_r" type="text" placeholder="请输入您的详细家庭住址"/></div>
+                    <div class="my-social-zj clearfix"><span>证件上传</span><img src="image/sz.jpg" alt=""/><div>身份证正面</div><input class="f_r" type="text" /></div>
+                </div>
+            </div>
+            <div class="parents-info">
+                <div class="my-info-box"><span>父母信息</span></div>
+                <div class="my-social-qq clearfix"><span>父亲姓名</span><input class="f_r" type="text" placeholder="请输入您的父亲姓名"/></div>
+                <div class="my-social-qq clearfix"><span>联系方式</span><input onkeyup="value=value.replace(/[^\d]/g,'')  "onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))"  id="f_phone" class="f_r" type="text" placeholder="请输入您父亲的联系方式"/></div>
+                <div class="my-social-xx clearfix"><span>工作地址</span><input class="f_r" type="text" placeholder="请输入您父亲的工作地址"/></div>
+                <div class="my-social-qq clearfix"><span>母亲姓名</span><input onkeyup="value=value.replace(/[^\d]/g,'')  "onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))" class="f_r" type="text" placeholder="请输入您母亲的姓名"/></div>
+                <div class="my-social-qq clearfix"><span>联系方式</span><input id="m_phone" class="f_r" type="text" placeholder="请输入您母亲的联系方式"/></div>
+                <div class="my-social-xx clearfix"><span>工作地址</span><input class="f_r" type="text" placeholder="请输入您母亲的工作地址"/></div>
+            </div>
+            <div class="my-contact-person">
+                <div class="my-info-box"><span>我的常用联系人1</span></div>
+                <div class="my-social-qq clearfix"><span>关系</span><input class="f_r" type="text" placeholder="请输入您常用联系人1的关系"/></div>
+                <div class="my-social-qq clearfix"><span>姓名</span><input class="f_r" type="text" placeholder="请输入您常用联系人1的姓名"/></div>
+                <div class="my-social-qq clearfix"><span>电话</span><input class="f_r" onkeyup="value=value.replace(/[^\d]/g,'')  "onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))" type="text" placeholder="请输入您常用联系人1的电话"/></div>
+            </div>
+            <div class="my-contact-person">
+                <div class="my-info-box"><span>我的常用联系人2</span><img id="mv-img" src="image/move.jpg" /></div>
+                <div class="my-social-qq clearfix"><span>关系</span><input class="f_r" type="text" placeholder="请输入您常用联系人2的关系"/></div>
+                <div class="my-social-qq clearfix"><span>姓名</span><input class="f_r" type="text" placeholder="请输入您常用联系人2的姓名"/></div>
+                <div class="my-social-qq clearfix"><span>电话</span><input class="f_r" onkeyup="value=value.replace(/[^\d]/g,'')  "onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))" type="text" placeholder="请输入您常用联系人2的电话"/></div>
+            </div>
+               <div id="add-mr">
+                    <img src="image/add.jpg"/>
+                    <span>关系|姓名|电话</span>
+               </div>
+            <div class="my-account">
+                <div class="my-info-box"><span>账户信息</span></div>
+                <div class="my-social-qq clearfix"><span>淘宝账号</span><input class="f_r" type="text" placeholder="请输入您的淘宝账号" /></div>
+                <div class="my-social-qq clearfix"><span>账号密码</span><input class="f_r" type="text" placeholder="请输入您的账号密码"/></div>
+                <div class="my-social-qq clearfix"><span>美团账号</span><input class="f_r" type="text" placeholder="请输入您的美团账号" /></div>
+                <div class="my-social-qq clearfix"><span>账号密码</span><input class="f_r" type="text" placeholder="请输入您的账号密码"/></div>
+            </div>
+        </div>
+            <div id="sub">
+                <span>提交上传</span>
+            </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,50 @@
+ {template '_header'}
+<div class="page-heading">
+
+	<span class='pull-right'>
+		
+		 {ifp 'commission.level.add'}
+            <a class='btn btn-primary btn-sm' data-toggle='ajaxModal' href="{php echo webUrl('commission/discount/add')}"><i class="fa fa-plus"></i> 添加新区间</a>
+		 {/if}
+                 
+	</span>
+	<h2>分销商分佣</h2>
+</div>
+
+<div class='alert alert-info'>
+	用户确认收货系统会在对应的一级或者二级分享区间匹配返佣比例,默认从高到底,如果存在相同区间,默认第一个。
+</div>
+<table class="table table-responsive table-hover">
+	<thead>
+		<tr>
+			<th style='width:160px;'>等级名称</th>
+			<th>所属等级</th>
+			<th>大于等于</th>
+			<th>小于</th>
+			<th>返佣比例</th>
+			<th>操作</th>
+		</tr>
+	</thead>
+	<tbody>
+		{loop $list $row}
+		<tr>
+			<td>{$row['levelname']}</td>
+			<td>
+				{if $row['type']==1}一级返佣设置{else}二级返佣设置{/if}
+			</td>
+			<td>{$row['start1']}元</td>
+			<td>{$row['start2']}元</td>			
+			<td>{$row['rate']}%</td>
+			<td>
+				{ifp 'commission.level.edit'}
+				<a class='btn btn-default btn-sm' data-toggle='ajaxModal' href="{php echo webUrl('commission/discount/edit', array('id' => $row['id']))}" title="{ifp 'commission.level.edit'}编辑{else}查看{/if}"><i class='fa fa-edit'></i> {ifp 'commission.level.edit'}编辑{else}查看{/if}</a>
+				{/if} {ifp 'commission.level.delete'}
+				<a class='btn btn-default btn-sm' data-toggle='ajaxRemove' href="{php echo webUrl('commission/discount/delete', array('id' => $row['id']))}" data-confirm="确认删除吗？"><i class='fa fa-remove'></i> 删除</a>
+			</td>
+			{/if}
+		</tr>
+		{/loop}
+
+	</tbody>
+</table>
+{template '_footer'}

@@ -1,0 +1,14 @@
+
+<ul class="menu-head-top">
+    <li {if $_W['controller']=='shop'} class="active" {/if}><a href="{php echo webUrl('shop')}">商城概述 <i class="fa fa-caret-right"></i></a></li>
+</ul>
+
+
+{ifp 'shop.adv|shop.nav|shop.banner|shop.sort'}
+<div class='menu-header'>首页</div>
+<ul>
+    {ifp 'shop.adv'}<li {if $_W['action'] == 'shop.adv'} class="active" {/if}><a href="{php echo webUrl('shop/adv')}">幻灯片</a></li>{/if}
+    {ifp 'shop.notice'}<li {if $_W['action'] == 'shop.notice'} class="active" {/if}><a href="{php echo webUrl('shop/notice')}">公告管理</a></li>{/if}    
+</ul>
+{/if}
+

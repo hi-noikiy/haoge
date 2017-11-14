@@ -1,0 +1,346 @@
+{template '_header2'}
+<style type="text/css">
+	#wrapper {
+		padding-bottom: 50px;
+	}
+	.chat-icon {
+			display: block; position: fixed; bottom: 15%; right: 15px; width: 48px; height: 48px; border-radius: 50%; background: url(/haoge/img/chat_img.png) no-repeat; background-size: 100% 100%;
+		}
+</style>
+{php $this->followBar()}
+<script type="text/javascript">
+	$('.follow_topbar').click(function(){
+		var url="{$shareset['followurl']}";
+		window.location.href=url;
+	});
+</script>
+<div id="wrapper">
+	<section>
+		<form method="post" action="{php echo mobileUrl('goods');}">
+			<div class="search-wrapper">
+				<span class="logo"></span>
+				<div class="input">
+					<input type="search" id="search" name="keywords" value="" placeholder="搜索商品关键字" />
+					<i class="iconfont icon-sousuo- fr"></i>
+				</div>
+			</div>
+		</form>
+		<div id="banner" class="swiper-container banner">
+			<div class="swiper-wrapper">
+				{loop $advs $item}
+					<div class="swiper-slide">
+						<img {if !empty($item['link'])}onclick="location.href='{$item['link']}'"{/if} class="pre-img-hook" src="{php echo tomedia($item['thumb'])}" />
+					</div>
+				{/loop}
+			</div>
+			<div class="swiper-pagination"></div>
+		</div>
+		<ul class="shop-links">
+			{loop $category  $cate}
+				
+				<li class="link">
+					<a href="{if $cate['id']==1179}{php echo mobileUrl('goods/welfare');}{else if $cate['id']==1180 }{php echo mobileUrl('goods/exchange');}{else if $cate['id']==1181 }{php echo mobileUrl('goods/matter');}{else}{php echo mobileUrl('shop/category');}&cateid={$cate['id']}{/if}">
+						<img src="{php echo tomedia($cate['advimg']);}" />
+						<p class="title">{$cate['name']}</p>
+					</a>
+				</li>
+			{/loop}
+			<li class="link">
+				<a href="{php echo mobileUrl('goods');}&istime=1">
+					<img src="/haoge/img/replace/shop_link9.png" />
+					<p class="title">限时活动</p>
+				</a>
+			</li>
+			<li class="link">
+				<a href="{php echo mobileUrl('member');}">
+					<img src="/haoge/img/replace/shop_link10.png" />
+					<p class="title">个人中心</p>
+				</a>
+			</li>
+		</ul>
+		<div class="note-wrapper">
+			<div class="note-content">
+				<ul id="note-list1" class="list move">
+					{loop $notice  $noitem}
+						<li class="item">{$noitem['detail']}</li>
+					{/loop}
+				</ul>
+				<ul id="note-list2" class="list move"></ul>
+			</div>
+		</div>
+		<div class="shop-banner" onclick="window.location.href='{$wapset[indexlogolink]}'" style="background-image: url({php echo tomedia($wapset[indexlogo])});"></div>
+		<div class="shop-new-title banner">
+			<img class="pre-img-hook" src="/haoge/img/shop_new_title.png" />
+		</div>
+		<ul class="shop-new-list" id="newlist">
+			<script id='newgoods' type='text/html'>
+			<%each list as g%> 
+			<li class="item">
+				<a href="{php echo mobileUrl('goods/detail')}&id=<%g.id%>">
+				<div class="img banner">
+					<img class="lazyload" data-original="<%g.newlogo%>" />
+				</div>
+				<div class="text">
+					<div class="title"><%g.title%></div>
+					<div class="wrap">
+						<span class="price">￥<%g.marketprice%></span>
+						<span class="number">销量<%g.sales%></span>
+						<img class="add-cart" goodsid="<%g.id%>" src="/haoge/img/add_cart.png" width="26" height="21" />
+					</div>
+				</div>
+				</a>
+			</li>
+			<%/each%>
+			</script>
+		</ul>
+		<div class="shop-more">
+			<div class="line"></div>
+			<div class="text" id="getmore">查看更多</div>
+			<div class="line"></div>
+		</div>
+		<div class="shop-banner-title banner">
+			<img class="pre-img-hook" src="/haoge/img/shop_title.png" />
+		</div>
+		<ul class="list-wrapper" id="recommandlist">
+			<script id='recommandgoods' type='text/html'>
+			<%each list as g%> 
+			<li>
+				<a href="{php echo mobileUrl('goods/detail')}&id=<%g.id%>">
+					<div class="sq-img">
+						<img class="lazyload" data-original="<%g.thumb%>" width="100%" height="100%" />
+					</div>
+					<div class="text">
+						<h2 class="title over_2"><%g.title%></h2>
+						<section>
+							<div class="price">￥: <%g.marketprice%></div>
+							<div class="number">销量<%g.sales%></div>
+						</section>
+						<img class="add-cart" goodsid="<%g.id%>" src="/haoge/img/add_cart.png" width="25" height="21" />
+					</div>
+				</a>
+			</li>
+			<%/each%>
+			</script>
+		</ul>
+		<div class="shop-more">
+			<div class="line"></div>
+			<div class="text" id="getmorenext">查看更多</div>
+			<div class="line"></div>
+		</div>		
+	</section>
+</div>
+{if $member['isview']==0 && $member['mobile']!='' }
+<div id="mask-vip">
+	<div class="mask"></div>
+	<div class="mask-vip-content">
+		<div class="title"></div>
+		<p class="text">您是第{$member['viewnum']}名会员</p>
+		<a class="vip-btn" href="javascript:;" onclick="$('#mask-vip').hide()">我知道了</a>
+	</div>
+</div>
+{/if}
+<a href="http://wpa.qq.com/msgrd?v=3&uin={$wapset['qq']}&site=qq&menu=yes" class="chat-icon"></a>
+{template 'optionpicker'}
+{template '_footer2'}
+<script src="/haoge/js/jquery.lazyload.min.js"></script>
+<script src="/haoge/js/tools.js"></script>
+<script src="/haoge/js/iscroll.js"></script>
+<script src="/haoge/js/common.js"></script>
+<script type="text/javascript">
+	require(['core', 'tpl', '/haoge/js/swiper-3.4.2.min.js'], function(core, tpl, Swiper) {
+
+		$(function() {
+			
+			Tools.swipe('#banner');
+			
+			//规格选择器Start
+			var optionpicker=shopcart('.add-cart',function(df,_this){
+				var goodsid=$(_this).attr('goodsid');
+				var url="{php echo mobileUrl('goods/picker');}";
+				core.json(url,{id:goodsid},function(ret){
+					//console.log(ret);
+					$("#mask-container").html(tpl('option-picker',ret.result));
+					df.resolve();
+					
+					var resspecid="";
+					//1.规格选择
+					$('#items dd').click(function(){
+						//active处理
+						_this=$(this);
+						_this.siblings().removeClass('active');
+						_this.addClass('active');
+						
+						//规格图片处理
+						var thumb=_this.attr('data-thumb');
+						if(thumb!=''){
+								$("#wrapper2 .img img").attr('src',thumb);							
+						}
+						
+						
+						
+						//生成specid start(后台的options)
+						var selectitems=$('#items .active');
+						var specid=[];
+						if(selectitems.length>0){
+							for (var i=0;i<selectitems.length;i++) {
+								specid.push(selectitems.eq(i).attr('data-id'));
+							}
+						}
+						specid=specid.sort();
+						//对比和用户选择的数量start
+						for (var i=0;i<ret.result.options.length;i++) {
+									var tempspecid=ret.result.options[i].specs.split('_').sort();
+									if(specid.length==ret.result.specs.length){
+										if(tempspecid.toString()==specid.toString()){
+											$('#wrapper2 .price').text('￥: '+ret.result.options[i].marketprice);
+											resspecid=ret.result.options[i].id;
+										}
+									}
+									else{
+										break;
+									}
+
+						}
+						console.log(resspecid);
+						//对比和用户选择的数量End	
+					})
+					//2.加减处理
+					$('section .reduce').click(function(){
+						nownumber=Number($('.goodsnum').val());
+						//console.log(nownumber);
+						nownumber--;
+						if(nownumber>0){
+							$('.goodsnum').val(nownumber);
+						}
+					});
+					$('section .add').click(function(){
+						nownumber=Number($('.goodsnum').val());
+						console.log(nownumber);
+						nownumber++;
+						$('.goodsnum').val(nownumber);
+					});	
+					//3.添加到购物车
+					$('#addcart').click(function(){
+						var url="{php echo mobileUrl('member/cart/add');}";
+						core.json(url, {
+							id: ret.result.goods.id,
+							optionid: resspecid,
+							total: Number($('.goodsnum').val()),
+						}, function(ret) {
+							if (ret.status == 0) {
+								Tools.toast(ret.result.message);
+								if (ret.result.url) {
+									setTimeout(function() {
+										location.href = ret.result.url
+									}, 800)
+								}
+								return
+							}
+							else{
+								Tools.toast('添加成功');
+								optionpicker.hideModal();
+							}
+						}, true, true)						
+					});
+					//4.立即购买
+					$('#buy').click(function(){
+						var url="{php echo mobileUrl('order/create')}";
+						location.href = core.getUrl(url, {
+							id: ret.result.goods.id,
+							optionid:resspecid,
+							total: Number($('.goodsnum').val())
+						})						
+					});
+				
+									
+				});
+			});
+			//规格选择器End
+			
+			
+			//锄禾日当午,汗滴禾下土.			
+			var newpage=1;//新品page
+			var recommandpage=1;//推荐page	
+			
+			GetList(1);GetList(2);
+			//获取商品方法,type=1是新品,type=2是推荐
+			function GetList($type){
+				var url
+				var params;
+				switch($type)
+				{
+					case 1:
+						url='get_new';
+						params={'page':newpage};
+					break;
+					case 2:
+						url='get_recommand';
+						params={'page':recommandpage};
+					break;
+				}
+				core.json(url,params,function(json){
+					json=json.result;
+					//console.log(json);
+					if(json.list.length>0){
+						if($type==1){
+							if(newpage==1){
+								$("#newlist").html(tpl('newgoods', json));
+							}
+							else{
+								$("#newlist").append(tpl('newgoods', json));
+							}
+							newpage++;
+						}
+						else{
+							if(newpage==1){
+								$("#recommandlist").html(tpl('recommandgoods',json));
+							}
+							else{
+								$("#recommandlist").append(tpl('recommandgoods',json));
+							}							
+							recommandpage++;
+						}
+					}
+					else{
+						Tools.toast('已经全部加载...');
+					}
+					lazyloadimg();
+					
+				},true,true);
+			}
+			//新品显示更多1.
+			$('#getmore').click(function(){
+				GetList(1);
+			});
+			//新品显示更多2.
+			$('#getmorenext').click(function(){
+				GetList(2);
+			});
+			
+			(function () {
+				var list = $('#note-list1');
+				var list2 = $('#note-list2');
+				var height = 32;
+				var offset = 0;
+				var totalHeight = list.find('li').length * 32;
+				list2.html(list.html());
+				function move() {
+					offset -= 32;
+					list.animate({
+						marginTop: offset
+					}, 500, function () {
+						if (offset <= -totalHeight) {
+							offset = 0;
+							list.css('margin-top', 0);
+						}
+					});
+				}
+				setInterval(move, 3000);
+			})()
+		})
+
+	});
+</script>
+</body>
+
+</html>

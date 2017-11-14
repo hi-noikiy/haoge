@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="css/swiper.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="css/icon.css" />
+		<link rel="stylesheet" type="text/css" href="css/public.css" />
+		<link rel="stylesheet" type="text/css" href="css/layout.css" />
+		<title>我的团队</title>
+		<style type="text/css">
+			#wrapper {
+				bottom: 50px;
+			}
+			.banner img {
+				width: 100%;
+			}
+			body {
+				background-color: #fff;
+			}
+			body, html {
+				height: auto;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="wrapper">
+			<section>
+				<div class="cus-title-wrapper">
+					<h1 class="title">副总裁</h1>
+					<div class="desc">等级说明</div>
+					<div class="progress-wrapper">
+						<div class="progress">
+							<div class="value" style="width: 50%;">
+								<div class="value-text">102.3万</div>
+							</div>
+						</div>
+						<div class="total">200万</div>
+						<div class="tips">年度业绩200万，申请公司高级副总裁</div>
+					</div>
+				</div>
+				<div class="cus-tab">
+					<a href="javascript:;" class="first">我的上级</a>
+					<a href="javascript:;" class="active">直接推荐</a>
+					<a href="javascript:;" class="last">间接推荐</a>
+				</div>
+				<div class="cus-content-header clearfix">
+					<span class="fl">成员信息</span>
+					<span class="fr">共999人</span>
+				</div>
+				<ul class="cus-content">
+					<li class="item">
+						<div class="img">
+							<img src="img/replace/list_img.png" width="45" height="45" />
+						</div>
+						<div class="text">
+							<h2 class="title">某代理</h2>
+							<p class="sub-title">加入时间：2016-11-04 11:24</p>
+						</div>
+					</li>
+					<li class="item">
+						<div class="img">
+							<img src="img/replace/list_img.png" width="45" height="45" />
+						</div>
+						<div class="text">
+							<h2 class="title">某代理</h2>
+							<p class="sub-title">加入时间：2016-11-04 11:24</p>
+						</div>
+					</li>
+					<li class="item">
+						<div class="img">
+							<img src="img/replace/list_img.png" width="45" height="45" />
+						</div>
+						<div class="text">
+							<h2 class="title">某代理</h2>
+							<p class="sub-title">加入时间：2016-11-04 11:24</p>
+						</div>
+					</li>
+					<li class="item">
+						<div class="img">
+							<img src="img/replace/list_img.png" width="45" height="45" />
+						</div>
+						<div class="text">
+							<h2 class="title">某代理</h2>
+							<p class="sub-title">加入时间：2016-11-04 11:24</p>
+						</div>
+					</li>
+					<li class="item">
+						<div class="img">
+							<img src="img/replace/list_img.png" width="45" height="45" />
+						</div>
+						<div class="text">
+							<h2 class="title">某代理</h2>
+							<p class="sub-title">加入时间：2016-11-04 11:24</p>
+						</div>
+					</li>
+					<li class="item">
+						<div class="img">
+							<img src="img/replace/list_img.png" width="45" height="45" />
+						</div>
+						<div class="text">
+							<h2 class="title">某代理</h2>
+							<p class="sub-title">加入时间：2016-11-04 11:24</p>
+						</div>
+					</li>
+					<li class="item">
+						<div class="img">
+							<img src="img/replace/list_img.png" width="45" height="45" />
+						</div>
+						<div class="text">
+							<h2 class="title">某代理</h2>
+							<p class="sub-title">加入时间：2016-11-04 11:24</p>
+						</div>
+					</li>
+				</ul>
+			</section>
+		</div>
+
+		<script src="js/jquery-1.12.4.min.js"></script>
+		<script src="js/swiper-3.4.2.min.js"></script>
+		<script src="js/tools.js"></script>
+		<script src="js/iscroll.js"></script>
+		<script src="js/common.js"></script>
+		<script type="text/javascript">
+			$(function() {
+				_initScroll();
+				
+				$('.cus-tab').find('a').click(itemclick);
+				
+				/* 规格条目点击 */
+				function itemclick() {
+					$(this).addClass('active').siblings().removeClass('active');
+				}
+			})
+		</script>
+	</body>
+
+</html>

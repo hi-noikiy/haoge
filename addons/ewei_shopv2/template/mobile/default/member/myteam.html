@@ -1,0 +1,103 @@
+{template '_header2'}
+
+<style type="text/css">
+	#wrapper {
+		bottom: 50px;
+	}
+	
+	.banner img {
+		width: 100%;
+	}
+	
+	body {
+		background-color: #fff;
+	}
+	
+	body,
+	html {
+		height: auto;
+	}
+</style>
+<script type="text/javascript">
+	document.title = '我的团队';
+</script>
+<div id="wrapper">
+	<section>
+		<div class="cus-title-wrapper">
+			<h1 class="title">{$member['groupname']}</h1>
+			<div class="desc" onclick="window.location.href='{php echo  mobileUrl('member/rule')}'">等级说明</div>
+			<div class="progress-wrapper">
+				<div class="progress">
+					<div class="value" style="width: {$ret['Speed']}%;">
+						<div class="value-text">{$ret['EndNum']}</div>
+					</div>
+				</div>
+				<div class="total">{$ret['Info']}</div>
+				<div class="tips">{$ret['text']}</div>
+			</div>
+		</div>
+		<div class="cus-tab">
+			<a href="javascript:;" class="first" dataid="1">我的上级</a>
+			<a href="javascript:;" class="active" dataid="2">直接推荐</a>
+			<a href="javascript:;" class="last" dataid="3">间接推荐</a>
+		</div>
+		<div class="cus-content-header clearfix">
+			<span class="fl">成员信息</span>
+			<span class="fr">共<span id="nums">0</span>人</span>
+		</div>
+		<ul class="cus-content" id="team">
+			<script id='teamlist' type='text/html'>
+			<%each list as m%> 
+			<li class="item">
+				<div class="img">
+					<img src="<%m.avatar%>" width="45" height="45" />
+				</div>
+				<div class="text">
+					<h2 class="title"><%m.nickname%></h2>
+					<p class="sub-title">加入时间：<%m.createtime%></p>
+				</div>
+			</li>
+			<%/each%>
+			</script>
+		</ul>
+	</section>
+</div>
+
+<script src="/haoge/js/jquery-1.12.4.min.js"></script>
+<script src="/haoge/js/tools.js"></script>
+<script src="/haoge/js/iscroll.js"></script>
+<script src="/haoge/js/common.js"></script>
+<script type="text/javascript">
+		require(['core', 'tpl'], function(core, tpl) {
+			_initScroll();
+			$('.cus-tab').find('a').click(itemclick);
+			/* 规格条目点击 */
+			getlist(2);
+			
+			function itemclick() {
+				var status=$(this).attr('dataid');
+				$(this).addClass('active').siblings().removeClass('active');
+				getlist(status);
+			}
+			
+			function getlist(status){
+				var url="{php echo mobileUrl('member/myteam')}";
+				core.json(url,{status:status},function(ret){
+					//has database
+					if(ret.result.list.length>0){
+						$("#team").html(tpl('teamlist',ret.result));
+						$('#nums').text(ret.result.list.length);
+					}
+					//no  database
+					else{
+						$('#nums').text(ret.result.list.length);
+						$("#team").html(tpl('teamlist',ret.result));
+					}
+					console.log(ret);
+				})				
+			}
+		});	
+</script>
+</body>
+
+</html>

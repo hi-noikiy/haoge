@@ -1,0 +1,213 @@
+.media-box{
+    max-width: 768px;
+    margin: 0 auto;
+}
+.header{
+    z-index: 1;
+    width: 100%;
+    height: auto;
+}
+.header img{
+    width: 100%;
+    height: auto;
+    vertical-align: bottom;
+}
+.message-warp{
+    background-color: #f0f0f0;
+    width: 100%;
+    height: auto;
+    z-index: 2;
+    padding-bottom: 20px;
+}
+.message-warp .message{
+    position: relative;
+    background-color: #fff;
+    margin-right: 4%;
+    margin-left: 4%;
+    z-index: 4;
+    margin-top: -70px;
+    padding-top: 30px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+.message-warp .message .meassage-title{
+    background-color: #e8e8e8;
+    text-indent: 8px;
+    padding: 10px;
+    color: #9e9e9e;
+    font-size: 16px;
+    margin-top: 10px;
+}
+.message .weui-cells{
+    margin-top: 0px;
+}
+.message .weui-cells:after, .message .weui-cells:before,.message .weui-cell:before,.message{
+    border:none;
+}
+.message .weui-label{
+    text-indent: 5px;
+    color: #676767;
+}
+
+.message .weui-cells_form input, .weui-cells_form label[for], .weui-cells_form textarea{
+    border: 1px solid #e8e8e8;
+    text-indent: 15px;
+    height: 45px;
+    border-radius: 4px;
+}
+.city{
+    position: relative;
+    border: 1px solid #e8e8e8;
+    height: 45px;
+    border-radius: 4px;
+}
+.city input{
+    border: none !important;
+    width: 80%;
+    text-align: left;
+}
+.radio{
+    position: absolute;
+    top: 15px;
+    right: 10px;
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 16px solid #2ba245;
+}
+.message .weui-textarea{
+    height: 80px;
+    resize: none;
+    line-height: 30px;
+    vertical-align:middle;
+    overflow-y:hidden;
+}
+.message .weui-textarea::-webkit-input-placeholder {
+    line-height: 80px;
+}
+.message .id{
+    width: 100%;
+    border: 1px dashed #929292;
+    margin-right: 0px;
+    height: 80px;
+}
+.message .id .weui-uploader__input-box{
+    border: none;
+    margin: 0 auto;
+    float: none;
+    height: 60px;
+}
+.message .id p{
+    margin-top: -10px;
+    text-align: center;
+    color: #9e9e9e;
+    font-size: 17px;
+}
+.user{
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.submit{
+   width: 100%;
+    height: 50px;
+    color: #fff;
+    background-color: #2ba245;
+    font-size: 17px;
+    text-align: center;
+    line-height: 50px;
+}
+.add{
+    border: 1px dashed #929292;
+    margin: 10px 15px 20px;
+    text-align: center;
+    padding: 10px;
+}
+.add-icon{
+    width: 30px;
+    height: 30px;
+    background-color: #2ba245;
+    border-radius: 50%;
+    text-align: center;
+    margin: 0 auto;
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+}
+ .add-icon:before{
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 2px;
+    background-color: #fff;
+     top: 50%;
+     left: 50%;
+     -webkit-transform: translate(-50%,-50%);
+     transform: translate(-50%,-50%);
+}
+ .add-icon:after{
+    content: "";
+    position: absolute;
+    width: 2px;
+    height: 20px;
+    background-color: #fff;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+}
+ .delect{
+     float: right;
+     margin-top: -2px;
+     background-color: #fb5d3d;
+ }
+ .delect:after{
+     content: "";
+     background-color: transparent !important;
+ }
+.add ul{
+    display: inline-block;
+    list-style-type: none;
+    vertical-align: middle;
+}
+.add ul li{
+    float: left;
+    color: #676767;
+    font-size: 17px;
+    padding: 0px 2px;
+}
+
+.cascade_scroll_selects .scs_container .scs_dialog{
+    position: fixed !important;
+}
+.cascade_scroll_selects .scs_container .scs_dialog .scs_selects_group_title {
+    color: #2ba245 !important;
+}
+.cascade_scroll_selects .scs_container .scs_dialog .scs_item.scs_selected{
+    border-bottom: 1px solid #2ba245 !important;
+    border-top:1px solid #2ba245 !important;
+}
+.cascade_scroll_selects .scs_container .scs_dialog .scs_btns .scs_btn_ok{
+    background-color: #2ba245 !important;
+}
+
+@media (min-width: 321px) and (max-width: 375px){
+    .weui-label{
+        width: 90px;
+    }
+}
+@media (max-width: 320px){
+    .weui-cells{
+        font-size: 15px;
+    }
+    .weui-label{
+        width: 80px;
+    }
+    .message-warp .message .meassage-title{
+        font-size: 14px;
+    }
+    .message-warp .message{
+        margin-top: -60px;
+    }
+}

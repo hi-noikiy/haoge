@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="css/icon.css" />
+		<link rel="stylesheet" type="text/css" href="css/public.css" />
+		<link rel="stylesheet" type="text/css" href="css/layout.css" />
+		<title>全部商品</title>
+		<style type="text/css">
+			#wrapper {
+				padding-top: 41px;
+				padding-bottom: 50px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="list-title-wrapper">
+			<div id="drop" class="title"><span id="sort">默认排序</span><span class="iconfont icon-xiala-"></span></div>
+			<span id="show-type" class="iconfont icon-liebiao-_fuzhi fr"></span>
+		</div>
+		<div id="drop-item" class="drop-item hide">
+			<a href="javascript:;" class="item">销量从高到低</a>
+			<a href="javascript:;" class="item">销量从低到高</a>
+			<a href="javascript:;" class="item">价格从高到低</a>
+			<a href="javascript:;" class="item">价格从低到高</a>
+		</div>
+		<div id="wrapper">
+			<ul class="list-wrapper">
+				<li>
+					<a href="#">
+						<div class="sq-img">
+							<img class="lazyload" data-original="img/replace/list_img.png" width="100%" height="100%" />
+						</div>
+						<div class="text">
+							<h2 class="title over_2">豪格HG-201</h2>
+							<section>
+								<div class="price">￥: 9998.00</div>
+								<div class="number">月销量1233</div>
+							</section>
+							<img class="add-cart" src="img/add_cart.png" width="25" height="21" />
+						</div>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<div class="sq-img">
+							<img class="lazyload" data-original="img/replace/list_img.png" width="100%" height="100%" />
+						</div>
+						<div class="text">
+							<h2 class="title over_2">豪格HG-201A家用电解水机 净水器升级碱性水机 富活性氢小分子水</h2>
+							<section>
+								<div class="price">￥: 9998.00</div>
+								<div class="number">月销量1233</div>
+							</section>
+							<img class="add-cart" src="img/add_cart.png" width="25" height="21" />
+						</div>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<div class="sq-img">
+							<img class="lazyload" data-original="img/replace/list_img.png" width="100%" height="100%" />
+						</div>
+						<div class="text">
+							<h2 class="title over_2">豪格HG-201A家用电解水机 净水器升级碱性水机 富活性氢小分子水豪格HG-201A家用电解水机 净水器升级碱性水机 富活性氢小分子水</h2>
+							<section>
+								<div class="price">￥: 9998.00</div>
+								<div class="number">月销量1233</div>
+							</section>
+							<img class="add-cart" src="img/add_cart.png" width="25" height="21" />
+						</div>
+					</a>
+				</li>
+			</ul>
+		</div>
+		<div class="mask hide close-hook"></div>
+		<div id="mask-container" class="mask-container hide">
+			<div id="wrapper2" class="wrap">
+				<section>
+					<div class="mask-wrap">
+						<div class="img"><img class="lazyload" data-original="img/replace/list_img.png" /></div>
+						<div class="text">
+							<p class="price">￥999</p>
+						</div>
+						<i class="icon icon-roundclose close-hook" ></i>
+					</div>
+					<div class="mask-center">
+						<div id="items" class="mask-center-div">
+							<dl>
+								<dt class="over_1">规格</dt>
+								<dd class="active">S</dd>
+								<dd>M</dd>
+								<dd>L</dd>
+							</dl>
+							<dl>
+								<dt class="over_1">数量</dt>
+								<dd class="active">S</dd>
+								<dd>6</dd>
+								<dd>7</dd>
+								<dd>8</dd>
+								<dd>9</dd>
+								<dd>10</dd>
+							</dl>
+						</div>
+						<div class="number">
+							<span class="fl">数量</span>
+							<section class="fr">
+								<span class="reduce">-</span>
+								<input type="number" readonly value="1" />
+								<span class="add">+</span>
+							</section>
+						</div>
+					</div>
+				</section>
+			</div>
+			<div class="mask-bottom">
+				<a href="javascript:;" style="background: #ff9503;" id="addcart">加入购物车</a>
+				<a href="#" id="buy" style="background: #d01c1d;">立即购买</a>
+			</div>
+		</div>
+
+		<script src="js/jquery-1.12.4.min.js"></script>
+		<script src="js/jquery.lazyload.min.js"></script>
+		<script src="js/iscroll.js"></script>
+		<script src="js/common.js"></script>
+		<script type="text/javascript">
+			$(function() {
+				var showType = $('#show-type'),
+					list = $('.list-wrapper'),
+					drop = $('#drop'),
+					sort = $('#sort'),
+					dropItem = $('#drop-item');
+				showType.click(showTypeClick);
+				drop.click(dropClick);
+				dropItem.delegate('.item', 'click', function () {
+					sort.text(this.innerText);
+					hideDrop();
+				});
+				shopcart('.add-cart');
+				lazyloadimg();
+				/* 切换视图回调 */
+				function showTypeClick() {
+					if (list.hasClass('list-wrapper')) {
+						$(this).addClass('icon-liebiao-1').removeClass('icon-liebiao-_fuzhi');
+						list.addClass('list-wrapper-1').removeClass('list-wrapper');
+					}
+					else {
+						$(this).removeClass('icon-liebiao-1').addClass('icon-liebiao-_fuzhi');
+						list.addClass('list-wrapper').removeClass('list-wrapper-1');
+					}
+				}
+				
+				/* 筛选事件回调 */
+				function dropClick() {
+					if (dropItem.hasClass('hide')) showDrop(); else hideDrop();
+				}
+				
+				function showDrop() {
+					var icon = drop.find('.icon-xiala-');
+					dropItem.removeClass('hide');
+					icon.css('transform', 'rotateZ(-180deg)');
+				}
+				
+				function hideDrop() {
+					var icon = drop.find('.icon-xiala-');
+					dropItem.addClass('hide');
+					icon.css('transform', 'rotateZ(0)');
+				}
+			})
+		</script>
+	</body>
+
+</html>

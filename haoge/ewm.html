@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="css/swiper.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="css/icon.css" />
+		<link rel="stylesheet" type="text/css" href="css/public.css" />
+		<link rel="stylesheet" type="text/css" href="css/layout.css" />
+		<title>我的海报</title>
+		<style type="text/css">
+			body,
+			html {
+				position: relative;
+				width: 100%;
+				height: 100%;
+			}
+			body {
+				text-align: center;
+			}
+			.ewm-wrapper {
+				position: absolute;
+				left: 0;
+				right: 0;
+				top: 0;
+				width: 100%;
+				bottom: 168px;
+				background: url(img/share_bg.jpg) no-repeat center center;
+				background-size: cover;
+				box-sizing: border-box;
+			}
+			
+			.ewm-wrapper img {
+				position: absolute;
+				bottom: 0;
+				width: 196px;
+				height: 196px;
+				left: 50%;
+				margin-left: -98px;
+			}
+			.ewm-text-wrapper .title-text {
+				margin-bottom: 30px;
+				text-align: center;
+				color: #fff;
+				font-size: 18px;
+			}
+			.ewm-text-wrapper {
+				position: absolute;
+				padding: 30px 0;
+				width: 100%;
+				bottom: 0;
+				background-color: #409af7;
+			}
+			.user-wrapper {
+				padding: 0 40px;
+				font-size: 0;
+			}
+			.user-wrapper .img, .user-wrapper .text{
+				display: inline-block;
+				vertical-align: top;
+			}
+			.user-wrapper .text {
+				padding-left: 10px;
+				padding-right: 5px;
+				font-size: 12px;
+				color: #fff;
+				border-bottom: 2px solid #fff;
+				text-align: left;
+			}
+			.user-wrapper .text .title,.user-wrapper .text .sub-title {
+				margin-bottom: 9px;
+			}
+			.icon {
+				display: inline-block;
+				position: absolute;
+				margin-left: -25%;
+				width: 50%;
+				z-index: 99;
+				top: 20px;
+			}
+			@media only screen and (max-width: 320px) {
+				.user-wrapper {
+					padding: 0 15px;
+				}
+				.icon {
+					width: 34%;
+					margin-left: -17%;
+				}
+				.ewm-wrapper img {
+					width: 150px;
+					height: 150px;
+					margin-left: -75px;
+				}
+			}
+		</style>
+	</head>
+	<img class="icon" src="img/ren(1).png"/>
+	<div class="ewm-wrapper">
+		<img src="http://haoge.baimuv.com/addons/ewei_shopv2/data/qrcode/1/66c00698c8b3cac84f8c2131188850a8.jpg" />
+	</div>
+	<div class="ewm-text-wrapper">
+		<h1 class="title-text">扫描二维码，抢注会员享受首发礼包</h1>
+		<div class="user-wrapper">
+			<div class="img">
+				<img class="block" width="60" height="60" src="http://wx.qlogo.cn/mmopen/ZWnK4XJXh3EAlLiaRfAH8g132QX628l7O5wHc3oPgeTM5ZexEaewZZ8wgrCBYTcMTSxia2WDDWCpHOTWdhM1jjDacc2VlQ0pJx/132" />
+			</div>
+			<div class="text">
+				<div class="title">我是韩总剪</div>
+				<div class="sub-title">和我一起价值传递</div>
+				<div class="sub-title" style="margin-bottom: 4px;">豪格电解水机健康分享平台全新首发</div>
+			</div>
+		</div>
+	</div>
+	</body>
+
+</html>

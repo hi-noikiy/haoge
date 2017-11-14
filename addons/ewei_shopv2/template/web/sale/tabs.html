@@ -1,0 +1,14 @@
+{if com("sale")}
+{ifp 'sale.deduct|sale.enough|sale.enoughfree|sale.recharge'}
+<div class='menu-header'>基本</div>
+<ul>
+    {if function_exists('redis') && !is_error(redis())}
+        {ifp 'sale.deduct'}<li {if $_W['routes']=='sale.deduct' || $_W['action']=='sale'}class="active"{/if}><a href="{php echo webUrl('sale/deduct')}">抵扣设置</a></li>{/if}
+    {/if}
+ </ul>
+{/if}
+{/if}
+<div class='menu-header'>工具 </div>
+<ul>
+    {ifp 'sale.virtual'}<li {if $_W['routes']=='sale.virtual'}class="active"{/if}><a href="{php echo webUrl('sale/virtual')}">关注回复</a></li>{/if}
+</ul>

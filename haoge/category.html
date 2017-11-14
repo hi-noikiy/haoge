@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="css/icon.css" />
+		<link rel="stylesheet" type="text/css" href="css/public.css" />
+		<link rel="stylesheet" type="text/css" href="css/layout.css" />
+		<title>全部商品</title>
+		<style type="text/css">
+			#wrapper {
+				padding-top: 84px;
+				padding-bottom: 50px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="category-container">
+			<div class="category-search-wrapper">
+				<div class="icon"><i class="iconfont icon-xiala-"></i></div>
+				<div class="input"><i class="iconfont icon-sousuo-"></i><input type="search" value="" placeholder="输入关键字" /></div>
+				<span class="text">搜索</span>
+			</div>
+			<div id="wrapper2" style="background-color: #fff;overflow: hidden;">
+				<ul id="category-list" class="category-list">
+					<li class="item active">
+						<span class="text">电解水机</span>
+					</li>
+					<li class="item">
+						<span class="text">有机食品</span>
+					</li>
+					<li class="item">
+						<span class="text">健康保健</span>
+					</li>
+					<li class="item">
+						<span class="text">运动健身</span>
+					</li>
+					<li class="item">
+						<span class="text">个人护理</span>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div id="wrapper">
+			<ul class="list-wrapper">
+				<li>
+					<a href="#">
+						<div class="sq-img">
+							<img class="lazyload" data-original="img/replace/list_img.png" width="100%" height="100%" />
+						</div>
+						<div class="text">
+							<h2 class="title over_2">豪格HG-201</h2>
+							<section>
+								<div class="price">￥: 9998.00</div>
+								<div class="number">月销量1233</div>
+							</section>
+							<img class="add-cart" src="img/add_cart.png" width="25" height="21" />
+						</div>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<div class="sq-img">
+							<img class="lazyload" data-original="img/replace/list_img.png" width="100%" height="100%" />
+						</div>
+						<div class="text">
+							<h2 class="title over_2">豪格HG-201A家用电解水机 净水器升级碱性水机 富活性氢小分子水</h2>
+							<section>
+								<div class="price">￥: 9998.00</div>
+								<div class="number">月销量1233</div>
+							</section>
+							<img class="add-cart" src="img/add_cart.png" width="25" height="21" />
+						</div>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<div class="sq-img">
+							<img class="lazyload" data-original="img/replace/list_img.png" width="100%" height="100%" />
+						</div>
+						<div class="text">
+							<h2 class="title over_2">豪格HG-201A家用电解水机 净水器升级碱性水机 富活性氢小分子水豪格HG-201A家用电解水机 净水器升级碱性水机 富活性氢小分子水</h2>
+							<section>
+								<div class="price">￥: 9998.00</div>
+								<div class="number">月销量1233</div>
+							</section>
+							<img class="add-cart" src="img/add_cart.png" width="25" height="21" />
+						</div>
+					</a>
+				</li>
+			</ul>
+		</div>
+		<div class="mask hide close-hook"></div>
+		<div id="mask-container" class="mask-container hide">
+			<div class="wrap">
+				<section>
+					<div class="mask-wrap">
+						<div class="img"><img class="lazyload" data-original="img/replace/list_img.png" /></div>
+						<div class="text">
+							<p class="price">￥999</p>
+						</div>
+						<i class="icon icon-roundclose close-hook" ></i>
+					</div>
+					<div class="mask-center">
+						<div id="items" class="mask-center-div">
+							<dl>
+								<dt class="over_1">规格</dt>
+								<dd class="active">S</dd>
+								<dd>M</dd>
+								<dd>L</dd>
+							</dl>
+							<dl>
+								<dt class="over_1">数量</dt>
+								<dd class="active">S</dd>
+								<dd>6</dd>
+								<dd>7</dd>
+								<dd>8</dd>
+								<dd>9</dd>
+								<dd>10</dd>
+							</dl>
+						</div>
+						<div class="number">
+							<span class="fl">数量</span>
+							<section class="fr">
+								<span class="reduce">-</span>
+								<input type="number" readonly value="1" />
+								<span class="add">+</span>
+							</section>
+						</div>
+					</div>
+				</section>
+			</div>
+			<div class="mask-bottom">
+				<a href="javascript:;" style="background: #ff9503;" id="addcart">加入购物车</a>
+				<a href="#" id="buy" style="background: #d01c1d;">立即购买</a>
+			</div>
+		</div>
+
+		<script src="js/jquery-1.12.4.min.js"></script>
+		<script src="js/jquery.lazyload.min.js"></script>
+		<script src="js/iscroll.js"></script>
+		<script src="js/common.js"></script>
+		<script type="text/javascript">
+			$(function() {
+				const PADDING = 12;
+				var category = $('#category-list'),
+					len = category.find('.item').length;
+				initList();
+				shopcart('.add-cart');
+				lazyloadimg();
+				category.delegate('.item', 'click', itemclick);
+				
+				/* 初始化列表宽度 */
+				function initList() {
+					category.find('.item').each(function () {
+						$(this).width(window.innerWidth*0.27-PADDING*2);
+					});
+					var itemWidth = category.find('.item')[0].offsetWidth;
+					category.width(itemWidth*len + 5);
+					
+					new IScroll('#wrapper2', {
+						scrollX: true,
+						click: true
+					});
+				}
+				
+				/* 规格条目点击 */
+				function itemclick() {
+					$(this).addClass('active').siblings().removeClass('active');
+				}
+			})
+		</script>
+	</body>
+
+</html>

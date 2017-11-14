@@ -1,0 +1,273 @@
+{template '_header2'}
+<style type="text/css">
+	#wrapper {
+		position: absolute;
+		top: 54px;
+		bottom: 0;
+		left: 0;
+		right: 0;
+	}
+	
+	.tab {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+	}
+</style>
+<script type="text/javascript">
+	document.title = '订单列表';
+</script>
+<div class="tab">
+	<a href="javascript:;" status=""  class="item {if $_GPC['status']==''}active{/if}">全部</a>
+	<a href="javascript:;" status="0" class="item {if $_GPC['status']=='0'}active{/if}">待付款</a>
+	<a href="javascript:;" status="1" class="item {if $_GPC['status']=='1'}active{/if}">待发货</a>
+	<a href="javascript:;" status="2" class="item {if $_GPC['status']=='2'}active{/if}">待收货</a>
+	<a href="javascript:;" status="3" class="item {if $_GPC['status']=='3'}active{/if}">已完成</a>
+</div>
+<div id="wrapper">
+	<div id="loadding"></div>
+	<ul class="order-wrapper" id="orderindexlist">
+		<script id='tpl_order_index_list' type='text/html'>
+		<%each list as o%> 
+		<li class="top-wrapper">
+			<div class="order-head-item clearfix">
+				<div class="number fl" onclick="window.location.href='{php echo mobileUrl('order/detail')}&id=<%o.id%>'">订单编号:<%o.ordersn%></div>
+				<div class="price fr"><%o.statusstr%></div>
+			</div>
+			<%each o.goods[0].goods as g%>
+			<div class="item">
+				<div class="img">
+					<img onclick="window.location.href='{php echo mobileUrl('goods/detail')}&id=<%g.goodsid%>'" src="<%g.thumb%>" />
+				</div>
+				<div class="text" onclick="window.location.href='{php echo mobileUrl('order/detail')}&id=<%o.id%>'">
+					<div class="title over_1"><%g.title%></div>
+					<%if g.optionid!='0'%><div class="sub-title">型号：<%g.optiontitle%></div><%/if%>
+					<section>
+						<div class="price fl">￥<%g.price%></div>
+						<div class="fr" style="color: #666;">x<%g.total%></div>
+					</section>
+				</div>
+			</div>
+			<%/each%>
+			<div class="total tr">共<%o.goods[0].goods.length%>件商品 合计：<span class="price">￥<%o.price%></span></div>
+			<div class="btns">
+			
+				<!--待发货-->	
+				<%if o.status==1 || (o.status==0 && o.paytype==3) %>
+						<a  class="item price note-hook" orderid="<%o.id%>">提醒发货</a>
+						<a href="{php echo mobileUrl('order/refund')}&id=<%o.id%>" class="item">申请售后</a>
+				<%/if%>
+				
+				<!--待收货-->				
+				<%if o.status==2 || (o.status==1 && o.sendtype>0) %>
+						<a href="{php echo mobileUrl('order/refund')}&id=<%o.id%>" class="item">申请售后</a>
+						<a href="{php echo mobileUrl('order/express')}&id=<%o.id%>" class="item">查看物流</a>
+						<a class="item price finish-hook" orderid="<%o.id%>">确认收货</a>
+				<%/if%>				
+				
+				<!--待付款-->
+				<%if o.userdeleted==0%>
+					<%if o.status==0%>
+						<a href="javascript:;" class="item delete-hook" orderid="<%o.id%>">删除订单</a>
+						<%if o.paytype!=3%>
+							<a href="{php echo mobileUrl('order/pay')}&id=<%o.id%>" class="item price">立即支付</a>
+						<%/if%>
+					<%/if%>
+				<%/if%>
+				
+				<!--已完成-->
+			    <%if o.status==3%>
+						<a href="{php echo mobileUrl('order/express')}&id=<%o.id%>" class="item">查看物流</a>
+						<a href="{php echo mobileUrl('order/detail')}&id=<%o.id%>" class="item price">查看订单</a>			    
+			    <%/if%>	
+	    
+
+			</div>
+		</li>
+		<%/each%>		
+		</script>
+	</ul>
+	<div id="empty" class="hide">
+		<div class="empty-wrap empty-data">
+			<img src="/haoge/img/empty_data.png">
+			<p>以科技改善健康，用知识迭代生活</p>
+		</div>
+	</div>
+</div>
+
+<script src="/haoge/js/jquery-1.12.4.min.js"></script>
+<script src="/haoge/js/tools.js"></script>
+<script src="/haoge/js/iscroll.js"></script>
+<script src="/haoge/js/common.js"></script>
+<script type="text/javascript">
+	require(['core', 'tpl'], function(core, tpl) {
+		$(function() {
+			var isCom = false;
+			var modal = {
+				page: 1,
+				status: '',
+				merchid: 0,
+				setactive:function(siblingsobj,thisobj){
+					if (thisobj.hasClass('active')) return;
+					siblingsobj.removeClass('active');
+					thisobj.addClass('active');
+					this.status=thisobj.attr('status');
+					this.page=1;
+					this.getList();
+					renderLoadding('正在加载...', false, '#loadding');
+					isCom = false;
+				}
+			};
+			//获取列表的方法
+			modal.getList = function(df) {
+					console.log(modal.page);
+					var url="{php echo mobileUrl('order/get_list')}";
+					removeLoadding();
+					hideEmpty();
+					core.json(url, {
+						page: modal.page,
+						status: modal.status,
+						merchid: modal.merchid
+					}, function(ret) {
+						var ret = ret.result
+						console.log(ret);
+						df && df.resolve();
+						removeLoadding();
+						if(ret.list.length>0){
+							hideEmpty();
+							if(modal.page==1){
+								$("#orderindexlist").html(tpl('tpl_order_index_list',ret));
+							}
+							else{
+								$("#orderindexlist").append(tpl('tpl_order_index_list',ret));
+							}
+							
+						}
+						else{
+							isCom = true;
+							if(modal.page==1){
+								$("#orderindexlist").html(tpl('tpl_order_index_list',ret));
+								showEmpty();
+							}
+							else{
+								//Tools.toast('数据已经全部加载');
+								renderLoadding('已加载完全部数据', true);
+							}
+						}
+						modal.page++;
+					})
+			};	
+			//取消订单的方法			
+			modal.cancel = function(id, obj) {
+					var url="{php echo mobileUrl('order/op/cancel')}";
+					core.json(url, {
+						id: id,
+						remark: ' '
+					}, function(pay_json) {
+							obj.parents('li').remove();
+							Tools.toast('订单取消成功');
+					}, true, true)
+			};
+			//提醒发货通知
+			modal.notice=function(orderid){
+					var url="{php echo mobileUrl('order/op/tomessage')}";
+					core.json(url, {
+						orderid: orderid
+					}, function(json) {
+						Tools.toast('提醒发货成功');
+					}, true, true)				
+			}
+			//订单确认收货
+			modal.finish=function(orderid){
+					var url="{php echo mobileUrl('order/op/finish')}";
+					core.json(url, {
+						id: orderid
+					}, function(ret) {
+						if(ret.status==1){
+							location.reload();
+							return;
+						}
+						else{
+							Tools.toast(ret.result.message);
+						}
+					}, true, true)						
+			}
+			modal.delete=function(orderid,obj){
+					var url="{php echo mobileUrl('order/op/delete')}";
+					core.json(url, {
+						id: orderid,
+						userdeleted:2
+					}, function(ret) {
+						if(ret.status==1){
+							obj.parents('li').remove();
+							return;
+						}
+						else{
+							Tools.toast(ret.result.message);
+						}
+					}, true, true)						
+			}			
+			//初始化参数
+			var init={status:"{$_GPC['status']}",merchid:{php echo intval($_GPC['merchid'])}};
+			modal.status=init.status;
+			modal.merchid=init.merchid;
+			console.log(modal.status+'--'+modal.merchid);
+			//初始化加载
+			modal.getList();
+			renderLoadding('正在加载...', false, '#loadding');
+
+			//朝发白帝彩云间,千里江临一日还.
+			$('#wrapper').on('click', '.cancel-hook', cancelClick);
+			$('#wrapper').on('click', '.delete-hook', deleteClick);
+			$('#wrapper').on('click', '.note-hook', noteClick);
+			$('#wrapper').on('click', '.finish-hook', finishClick);			
+			//菜单切换
+			$('.tab a').click(function(){
+				modal.setactive($(this).siblings(),$(this));
+			});
+			
+			//滚动加载
+			infinite(function (df) {
+				if (!isCom) {
+					modal.page++;
+					modal.getList(df);
+					renderLoadding('正在加载...', false);
+				}
+			});
+			
+			//提醒发货按钮点击
+			function noteClick(){
+				modal.notice($(this).attr('orderid'));
+			}
+
+			//取消订单按钮点击 
+			function cancelClick() {
+				var obj=$(this);
+				Tools.alert('你确定要取消该订单吗？', function() {
+					modal.cancel(obj.attr('orderid'),obj);
+				}, true);
+			}
+			
+			//确认收货按钮点击
+			function finishClick(){
+				var obj=$(this);
+				Tools.alert('是否确认收货？', function() {
+					modal.finish(obj.attr('orderid'),obj);
+				}, true);				
+			}
+	
+			/* 删除订单按钮点击 */
+			function deleteClick() {
+				var obj=$(this);
+				Tools.alert('你确定要删除该订单吗？', function() {
+					modal.delete(obj.attr('orderid'),obj);
+				}, true);
+			}
+
+		})		
+	});
+</script>
+</body>
+
+</html>

@@ -1,0 +1,164 @@
+{template '_header2'}
+<style type="text/css">
+	#wrapper {
+		bottom: 58px;
+	}
+</style>
+<script type="text/javascript">
+	document.title = '订单详情';
+</script>
+		<div id="wrapper">
+			<div class="order-wrapper">
+				<div class="top-wrapper">
+					<div class="order-top-item clearfix">
+						<div class="number fl">订单编号:{$order['ordersn']}</div>
+						<div class="price fr">
+                        {if empty($order['status'])}
+                        {if $order['paytype']==3}
+                        货到付款，等待发货
+                        {else}
+                        待付款
+                        {/if}
+                        {elseif $order['status']==1}
+                        {if $order['sendtype']>0}部分商品已发货{else}待发货{/if}
+                        {if !empty($order['ccard'])}
+                        (充值中)
+                        {/if}
+                        {elseif $order['status']==2}
+                        待收货
+                        {elseif $order['status']==3}
+                        已完成
+                        {if !empty($order['ccard'])}
+                        (充值完成)
+                        {/if}
+                        {elseif $order['status']==-1}
+                        交易关闭
+                        {/if}
+
+                        {if $order['refundstate'] > 0}
+                        ({if $order['status'] ==1}申请售后{else}申请售后{/if}中)
+                        {/if}							
+						</div>
+					</div>
+					
+					{loop $goods $g}
+					<div class="item" onclick="window.location.href='{php echo mobileUrl('goods/detail',array('id'=>$g['goodsid']))}'">
+						<div class="img">
+							<img src="{php echo tomedia($g['thumb'])}"/>
+						</div>
+						<div class="text">
+							<div class="title over_1">{$g['title']}</div>
+							{if !empty($g['optionid'])}<div class="sub-title">型号：ABE-RNK</div>{/if}
+							<div class="price">￥{$g['price']}</div>
+						</div>
+					</div>
+					{/loop}
+					<div class="total tr">共{php echo count($goods);}件商品  合计：<span class="price">￥{$order['goodsprice']}</span></div>
+					<div class="btns">
+
+						<!--待付款-->
+						{if $order['userdeleted']==0}
+							{if $order['status']==0}
+								{if $order['paytype']!=3}
+									<a href="{php echo mobileUrl('order/pay')}&id={$order['id']}" class="item price">立即支付</a>
+								{/if}								
+							{/if}
+						{/if}
+						<!--待发货-->	
+						{if $order['status']==1  || ($order['status']==0 && $order['paytype']==3)}
+							<a  class="item price note-hook" orderid="{$order['id']}">提醒发货</a>
+						{/if}
+						
+						<!--待收货-->	
+						{if $order['status']==2 ||  ( $order['status']==1 && $order['sendtype']>0)}
+								<a href="{php echo mobileUrl('order/refund')}&id={$order['id']}" class="item">申请售后</a>
+								<a href="{php echo mobileUrl('order/express')}&id={$order['id']}" class="item">查看物流</a>
+								<a class="item price finish-hook" orderid="{$order['id']}">确认收货</a>
+						{/if}						
+						<!--已完成-->
+						{if $order['status']==3}
+								<a href="{php echo mobileUrl('order/refund')}&id={$order['id']}" class="item">申请售后</a>
+								<a href="{php echo mobileUrl('order/express')}&id={$order['id']}" class="item">查看物流</a>
+								<a href="{php echo mobileUrl('order/detail')}&id={$order['id']}" class="item price">查看订单</a>							
+						{/if}						
+					</div>
+				</div>
+				<div class="center-wrapper">
+					<div class="item"><span class="left">收货人:</span><span class="right">{$address['realname']}</span></div>
+					<div class="item"><span class="left">联系电话:</span><span class="right">{$address['mobile']}</span></div>
+					<div class="item"><span class="left">收货地址:</span><span class="right">{$address['province']}{$address['city']}{$address['area']}{$address['address']}</span></div>
+				</div>
+				<div class="bottom-wrapper center-wrapper">
+					<div class="item" style="border-bottom: 1px solid #c3c3c3;"><span class="left">支付方式:</span><div class="right clearfix"><span class="fl">微信</span><span class="fr">支付状态：<span class="price">
+								{if $order['paytype'] == 0}未支付{/if}
+                                {if $order['paytype'] == 1}已支付{/if}
+                                {if $order['paytype'] == 11}已支付{/if}
+                                {if $order['paytype'] == 21}已支付{/if}
+                                {if $order['paytype'] == 22}已支付{/if}
+                                {if $order['paytype'] == 23}已支付{/if}
+                                {if $order['paytype'] == 3}已支付{/if}			
+					</span></span></div></div>
+					<div class="item"><span class="left">商品总额</span><span class="right">￥{$order['price']}</span></div>
+					<div class="item"><span class="left">配送费用</span><span class="right">￥{$order['dispatchprice']}</span></div>
+					<div class="item"><span class="left">积分抵扣</span><span class="right">-￥{$order['deductprice']}</span></div>
+				</div>
+			</div>
+		</div>
+
+		<script src="/haoge/js/jquery-1.12.4.min.js"></script>
+		<script src="/haoge/js/iscroll.js"></script>
+		<script src="/haoge/js/common.js"></script>
+		<script src="/haoge/js/tools.js"></script>
+		<script type="text/javascript">
+			require(['core', 'tpl'], function (core, tpl) {
+				$(function() {
+					_initScroll();
+				
+				//触发提醒
+				$('.note-hook').click(function(){
+					notice($(this).attr('orderid'));
+				})
+				
+				//确认收货
+				$('.finish-hook').click(function(){
+					var obj=$(this);
+					Tools.alert('你确定确认收货吗？', function() {
+						finish(obj.attr('orderid'));
+					}, true);					
+					
+				});
+				
+				
+				//提醒
+				function notice(id) {
+					var url="{php echo mobileUrl('order/op/tomessage')}";
+					core.json(url, {
+						orderid: id
+					}, function(pay_json) {
+						if (pay_json.status == 1) {
+							core.tip.show('提醒成功');
+							return
+						}
+						core.tip.show('提醒成功');
+					}, true, true)
+				};
+				//收货
+				function finish(id) {
+					console.log(id);
+					var url="{php echo mobileUrl('order/op/finish')}";
+					core.json(url, {
+						id: id
+					}, function(pay_json) {
+						if (pay_json.status == 1) {
+							location.reload();
+							return
+						}
+						core.tip.show(pay_json.result.message);
+					}, true, true)
+				};						
+				})
+			})
+		</script>
+	</body>
+
+</html>

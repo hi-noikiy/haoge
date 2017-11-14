@@ -1,0 +1,27 @@
+<footer class="footer-wrapper">
+	<a href="{php echo mobileUrl('');}" class="item  {if $_GPC['r']=='' }active{/if}">
+		<i class="iconfont {if $_GPC['r']=='' }icon-shouye-{else}icon-shouye-2{/if}"></i>
+		<span class="text">首页</span>
+	</a>
+	<a href="{php echo mobileUrl('article');}" class="item">
+		<!-- 选中 icon-fenlei- -->
+		<!--<i class="iconfont {if $_GPC['r']=='shop.1' }icon-fenlei-{else}icon-fenlei-2{/if}"></i>-->
+		<i class="iconfont icon-yunying-"></i>
+		<span class="text">运营</span>
+	</a>
+	<a href="{php echo mobileUrl('member.qrcode');}" class="item">
+		<!-- 选中  -->
+		<!--<i class="iconfont {if $_GPC['r']=='goods' }icon-quanbu-2{else}icon-quanbu-{/if} "></i>-->
+		<i class="iconfont icon-erweima-"></i>
+		<span class="text">二维码</span>
+	</a>
+	<a href="{php echo mobileUrl('goods');}" class="item {if $_GPC['r']=='goods' }active{/if}" >
+		<!-- 选中 icon-gouwuche-2 -->
+		<i class="iconfont {if $_GPC['r']=='goods' }icon-quanbu-2{else}icon-quanbu-{/if}"></i>
+		<span class="text">商城</span>
+	</a>
+	<a href="{php echo mobileUrl('member');}" class="item {if $_GPC['r']=='member' }active{/if}">
+		<i class="iconfont {if $_GPC['r']=='member' }icon-wode-{else}icon-wode-2{/if}"></i>
+		<span class="text">我的</span>
+	</a>
+</footer>

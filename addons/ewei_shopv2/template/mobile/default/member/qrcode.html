@@ -1,0 +1,154 @@
+{template '_header2'}
+<style type="text/css">
+body,html {
+		position: relative;
+		width: 100%;
+				height: 100%;
+			}
+			body {
+				text-align: center;
+			}
+			.ewm-wrapper {
+				position: absolute;
+				left: 0;
+				right: 0;
+				top: 0;
+				width: 100%;
+				bottom: 168px;
+				background: url(/haoge/img/share_bg.jpg) no-repeat center center;
+				background-size: cover;
+				box-sizing: border-box;
+			}
+			
+			.ewm-wrapper img {
+				position: absolute;
+				bottom: 0;
+				width: 196px;
+				height: 196px;
+				left: 50%;
+				margin-left: -98px;
+			}
+			.ewm-text-wrapper .title-text {
+				margin-bottom: 30px;
+				text-align: center;
+				color: #fff;
+				font-size: 18px;
+			}
+			.ewm-text-wrapper {
+				position: absolute;
+				padding: 30px 0;
+				width: 100%;
+				bottom: 0;
+				background-color: #409af7;
+			}
+			.user-wrapper {
+				padding: 0 40px;
+				font-size: 0;
+			}
+			.user-wrapper .img, .user-wrapper .text{
+				display: inline-block;
+				vertical-align: top;
+			}
+			.user-wrapper .text {
+				padding-left: 10px;
+				padding-right: 5px;
+				font-size: 12px;
+				color: #fff;
+				border-bottom: 2px solid #fff;
+				text-align: left;
+			}
+			.user-wrapper .text .title,.user-wrapper .text .sub-title {
+				margin-bottom: 9px;
+			}
+			.icon {
+				display: inline-block;
+				position: absolute;
+				margin-left: -20%;
+				width: 40%;
+				z-index: 99;
+				top: 20px;
+			}
+			@media only screen and (max-width: 320px) {
+				.user-wrapper {
+					padding: 0 15px;
+				}
+				.icon {
+					width: 34%;
+					margin-left: -17%;
+				}
+				.ewm-wrapper img {
+					width: 150px;
+					height: 150px;
+					margin-left: -75px;
+				}
+			}
+</style>
+<script type="text/javascript">
+	document.title = '我的海报';
+</script>
+<img class="icon" src="/haoge/img/ren(1).png" />
+<div class="ewm-wrapper">
+	<img src="{$thisqrcode}" />
+</div>
+<div class="ewm-text-wrapper">
+	<h1 class="title-text">扫描二维码，抢注会员享受首发礼包</h1>
+	<div class="user-wrapper">
+		<div class="img">
+			<img class="block" width="60" height="60" src="{$member['avatar']}" />
+		</div>
+		<div class="text">
+			<div class="title">我是{$member['realname']}</div>
+			<div class="sub-title">和我一起价值传递</div>
+			<div class="sub-title" style="margin-bottom: 4px;">豪格电解水机健康分享平台全新首发</div>
+		</div>
+	</div>
+</div>
+{php $this->shopShare()}
+
+<script language="javascript">
+        clearTimeout(window.interval);
+        window.interval = setTimeout(function () {
+            window.shareData = {php echo json_encode($_W['shopshare'])};
+            jssdkconfig = {php echo json_encode($_W['account']['jssdkconfig']);} || { jsApiList:[] };
+            jssdkconfig.debug = false;
+            jssdkconfig.jsApiList = ['checkJsApi','onMenuShareTimeline','onMenuShareAppMessage','onMenuShareQQ','onMenuShareWeibo','showOptionMenu', 'hideMenuItems', 'onMenuShareQZone'];
+            wx.config(jssdkconfig);
+            wx.ready(function () {
+                wx.showOptionMenu();
+
+				wx.onMenuShareTimeline({
+				    title: '抢注商城会员享受首发礼包', // 分享标题
+				    link: '{$signurl}', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+				    imgUrl: '', // 分享图标
+				    success: function () { 
+				        // 用户确认分享后执行的回调函数
+				    },
+				    cancel: function () { 
+				        // 用户取消分享后执行的回调函数
+				    }
+				});
+				
+				wx.onMenuShareAppMessage({
+				    title: '抢注商城会员享受首发礼包', // 分享标题
+				    desc: '抢注商城会员享受首发礼包', // 分享描述
+				    link: '{$signurl}', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+				    imgUrl: '', // 分享图标
+				    type: '', // 分享类型,music、video或link，不填默认为link
+				    dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+				    success: function () { 
+				        // 用户确认分享后执行的回调函数
+				    },
+				    cancel: function () { 
+				        // 用户取消分享后执行的回调函数
+				    }
+				});				
+            });
+        },500);
+
+
+
+</script> 
+
+</body>
+
+</html>

@@ -1,0 +1,167 @@
+{template '_header'}
+<style type='text/css'>
+    .moresearch { padding:0px 10px;}
+    .moresearch .col-sm-2 {
+        padding:0 5px
+    }
+</style>
+<div class="page-heading">
+     
+         <span class='pull-right'>
+ 		<a class="btn btn-default  btn-sm" href="{php echo referer()}">返回列表</a>
+ 	</span>
+
+    <h2>团队分红 <small>	总数: <span class='text-danger'>{$total}</span></small>  <small>	上月订单总额[纯分享商品]: <span class='text-danger'>{$M1}</span></small>  <small>	本月订单总额[纯分享商品]: <span class='text-danger'>{$M2}</span></small>  <small>	实收金额[生成数据后为准]: <span class='text-danger'>{$M3}</span></small></h2> </div>
+
+<form action="./index.php" method="get" class="form-horizontal" role="form" id="form1">
+    <input type="hidden" name="c" value="site" />
+    <input type="hidden" name="a" value="entry" />
+    <input type="hidden" name="m" value="ewei_shopv2" />
+    <input type="hidden" name="do" value="web" />
+    <input type="hidden" name="r" value="commission.statistics.user" />
+    <input type="hidden" name="id" value="{$agentid}" />
+    <input type="hidden" name="searchstart" value="1" />
+
+    <div class="page-toolbar row m-b-sm m-t-sm ">
+        <div class="col-sm-5">
+            <button class="btn btn-default btn-sm"  type="button" data-toggle='refresh' style='float:left;'><i class='fa fa-refresh'></i></button>
+         	<button class="btn btn-default btn-sm" type="button" data-toggle='batch' data-href="{php echo webUrl('commission/statistics/user/dealwith')}"><i class='fa fa-user'></i> 批量审核</button>
+ 			<button class="btn btn-default btn-sm" type="button" data-toggle='batch' data-href="{php echo webUrl('commission/statistics/user/delete')}"><i class='fa fa-trash'></i> 批量删除</button>       
+        </div>
+
+        <div class="col-sm-7 pull-right">
+            <div class="input-group">
+            	<button class="btn btn-default btn-sm" type="button"    onclick="create();"><i class='glyphicon glyphicon-random'></i> 生成数据报表</button>       
+                <script>
+                	function create(){
+                		var checkurl="{php echo webUrl('commission/statistics/user/check')}";
+						$.post(checkurl,function(data,status){
+						    console.log(data);
+						    data=eval("("+data+")");
+						    if(data.status==1){
+						        if (confirm("已经存在上个月的数据是否继续覆盖？")) {  
+						            window.location.href='{php echo webUrl('commission/statistics/user/create')}';  
+						        }  
+						        else {  
+						           return false;
+						        }   						    	
+						    }
+						    else{
+						    		window.location.href='{php echo webUrl('commission/statistics/user/create')}';  
+						    }
+						});
+                		
+                		
+                		return;
+                		
+                		
+              		
+                	}
+                	
+                </script>
+                
+                <span class="input-group-btn">
+
+						<!--Excel-->
+					
+                </span>
+            </div>
+
+        </div>
+    </div>
+
+</form>
+
+    {if count($list)>0}
+
+    <table class="table table-hover table-responsive">
+        <thead class="navbar-inner" >
+        <tr>
+			<th style="width:25px;"><input type='checkbox' /></th>        	
+            <th style='width:250px;'>用户信息</th>
+            <th style='width:100px;'>团队业绩</th>
+            <th style='width:100px;'>分红金额</th>
+            <th style='width:70px;'>状态</th>
+            <th style='width:70px;'>所属月份</th>            
+            <th style='width:140px;'>创建时间</th>
+        </tr>
+        </thead>
+        <tbody>
+        {loop $list $row}
+        <tr>
+                    	<td style="position: relative; ">
+					<input type='checkbox'   value="{$row['id']}"/></td>       	
+            <td >
+                <span data-toggle='tooltip' title='{$row['nickname']}'>
+
+                <img src='{$row['avatar']}' style='width:30px;height:30px;padding1px;border:1px solid #ccc' />
+					
+					<span>{$row['groupname']}/{$row['othergroupname']} </span>
+					
+					
+                </span>
+            </td>
+
+            <td>{$row['achievement']}元</td>
+
+            <td>{$row['red']}元</td>
+
+            <td >  
+            	{if $row['status']==1}
+            	未审核
+            	{else}
+            	已审核
+            	{/if}
+            </td>
+            <td>
+            	{$row['month']}月份
+            </td>
+            <td>{php echo date('Y-m-d H:i',$row['createtime'])}</td>
+        </tr>
+        {/loop}
+        </tbody>
+    </table>
+    {$pager}
+
+    {else}
+    <div class='panel panel-default'>
+        <div class='panel-body' style='text-align: center;padding:30px;'>
+            暂时没有任何信息!
+        </div>
+    </div>
+    {/if}
+    <script language="javascript">
+
+
+
+        require(['bootstrap'],function(){
+            $("[rel=pop]").popover({
+                trigger:'manual',
+                placement : 'left',
+                title : $(this).data('title'),
+                html: 'true',
+                content : $(this).data('content'),
+                animation: false
+            }).on("mouseenter", function () {
+                var _this = this;
+                $(this).popover("show");
+                $(this).siblings(".popover").on("mouseleave", function () {
+                    $(_this).popover('hide');
+                });
+            }).on("mouseleave", function () {
+                var _this = this;
+                setTimeout(function () {
+                    if (!$(".popover:hover").length) {
+                        $(_this).popover("hide")
+                    }
+                }, 100);
+            });
+
+
+        });
+
+
+    </script>
+
+
+    {template '_footer'}

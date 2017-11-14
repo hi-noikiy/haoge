@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no" />
+		<title>订单确认</title>
+
+		<link rel="stylesheet" type="text/css" href="css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="css/icon.css" />
+		<link rel="stylesheet" type="text/css" href="css/public.css" />
+		<link rel="stylesheet" type="text/css" href="css/layout.css" />
+		<style type="text/css">
+			.detail-footer {
+				line-height: 49px;
+			}
+			
+			.detail-footer>span {
+				color: #ed5252
+			}
+			
+			.order-sel .right input {
+				width: 100%;
+			}
+			
+			#wrapper {
+				padding-bottom: 49px;
+			}
+			
+			.c-6 {
+				color: #666;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="wrapper">
+			<section>
+				<p class="order-t-bg c-f">确定订单后请尽快付款，过时订单将自动取消。</p>
+				<!-- 收货地址 S -->
+				<!-- 未添加任何收货地址 -->
+				<div class="address-container tc f-b no">
+					请添加收货地址
+				</div>
+				
+				<!-- 已添加收货地址 -->
+				<div class="address-container">
+					<div class="wrap fv">
+						<div class="text fv">
+							<span class="title fl">收货人：疯狂的三叶草</span><span class="fr">18331666666</span>
+							<p class="fz-24">广东省深圳市南山区大学城创意园A栋</p>
+						</div>
+						<i class="iconfont icon-xiala-"></i>
+					</div>
+				</div>
+				<!-- 收货地址 E -->
+				<div id="order" class="order-items">
+					<!-- 这里开始遍历 S-->
+					<div class="order-item">
+						<div class="item">
+							<img class="fl" src="img/replace/list_img.png" />
+							<div class="text">
+								<div class="title over_2">豪格HG-201A家用电解水机 净水器升级碱性水机 富活性氢小分子水</div>
+								<div class="sub-title">颜色：红色</div>
+							</div>
+							<div class="bottom clearfix">
+								x1
+							</div>
+						</div>
+						<div class="order-sel"><span class="fl left">优惠券</span><span class="fr c-6">促销900购物券<i class="iconfont icon-xiala-"></i></span></div>
+						<div class="sel-style tr">共1件商品&nbsp;&nbsp;小计： <span class="price">￥998.00</span></div>
+					</div>
+					<div class="order-sel-mar">
+						<div class="order-sel">
+							<span class="fl left c-6">豪格币抵扣（可用80豪格币抵扣8元）</span>
+							<div class="switch-wrap">
+								<div id="switch" class="switch-bot off">
+									<span class="switch-item"></span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="order-sel-mar">
+					<div class="order-sel"><span class="fl left">商品总额</span><span class="fr c-6">￥:998.00</span></div>
+					<div class="order-sel"><span class="fl left">+ 运费</span><span class="fr c-6">￥:5.00</span></div>
+					<div class="order-sel"><span class="fl left">- 优惠券</span><span class="fr c-6">￥:5.00</span></div>
+					<div class="order-sel"><span class="fl left">- 豪格币抵扣</span><span class="fr c-6">￥:5.00</span></div>
+				</div>
+			</section>
+		</div>
+		<div class="detail-footer clearfix tr">
+			共1件商品&nbsp;&nbsp;合计：<span>￥298.00</span>
+			<div class="wrap fr">
+				<section class="button">去结算</section>
+			</div>
+		</div>
+		<div class="confirm-mask-wrapper">
+			<div class="mask"></div>
+			<div id="wrapper2" class="wrapper">
+				<section>
+					<h1 class="title">首次购买需要购买以下一种或以上产品才能成为会员</h1>
+					<ul id="list" class="list">
+						<li id="item_1">
+							<div class="sel active"></div>
+							<div class="item">
+								<div class="img">
+									<img class="block" src="img/replace/list_img.png" width="74" height="74" />
+								</div>
+								<div class="text">
+									<div class="title">豪格HG-201A家用电解水机 净水器升级碱性水机 富活性氢小分子水</div>
+									<div class="price">￥19998</div>
+								</div>
+							</div>
+						</li>
+						<li id="item_2">
+							<div class="sel"></div>
+							<div class="item">
+								<div class="img">
+									<img class="block" src="img/replace/list_img.png" width="74" height="74" />
+								</div>
+								<div class="text">
+									<div class="title">豪格HG-201A家用电解水机 净水器升级碱性水机 富活性氢小分子水</div>
+									<div class="price">￥19998</div>
+								</div>
+							</div>
+						</li>
+						<li id="item_3">
+							<div class="sel"></div>
+							<div class="item">
+								<div class="img">
+									<img class="block" src="img/replace/list_img.png" width="74" height="74" />
+								</div>
+								<div class="text">
+									<div class="title">豪格HG-201A家用电解水机 净水器升级碱性水机 富活性氢小分子水</div>
+									<div class="price">￥19998</div>
+								</div>
+							</div>
+						</li>
+						<li id="item_4">
+							<div class="sel"></div>
+							<div class="item">
+								<div class="img">
+									<img class="block" src="img/replace/list_img.png" width="74" height="74" />
+								</div>
+								<div class="text">
+									<div class="title">豪格HG-201A家用电解水机 净水器升级碱性水机 富活性氢小分子水</div>
+									<div class="price">￥19998</div>
+								</div>
+							</div>
+						</li>
+					</ul>
+					<div class="btn-wrap">
+						<a id="add-order" href="#" class="item first">确定并加入订单</a>
+						<a href="#" class="item last" onclick="$('.confirm-mask-wrapper').hide();">取消购买</a>
+					</div>
+				</section>
+			</div>
+		</div>
+
+		<script src="js/jquery-1.12.4.min.js"></script>
+		<script src="js/tools.js"></script>
+		<script src="js/iscroll.js"></script>
+		<script src="js/common.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				_initScroll();
+				$('#switch').find('.switch-item').click(function () {
+					var _parent = $(this).parent();
+					if (_parent.hasClass('off')) {
+						_parent.addClass('on').removeClass('off');
+					}else {
+						_parent.addClass('off').removeClass('on');
+					}
+				})
+				
+				$('#add-order').click(function () {
+					close();
+					var _ids = [];
+					var _items = $('#list').find('.sel.active').parents('li');
+					
+					_items.each(function () {
+						_ids.push(this.id);
+					})
+					Tools.alert('你选中了'+_ids.join(','));
+				})
+				
+				$('#list').delegate('li', 'click', itemclick)
+				
+				function itemclick() {
+					$(this).find('.sel').toggleClass('active');
+				}
+			})
+			/* 关闭弹出框 */
+			function close() {
+				$('.confirm-mask-wrapper').hide();
+			}
+		</script>
+	</body>
+
+</html>

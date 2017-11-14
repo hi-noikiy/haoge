@@ -1,0 +1,102 @@
+{template '_header2'}
+
+<style type="text/css">
+	.share-list .left {
+		width: 26%;
+	}
+	
+	.share-list .right {
+		width: 74%;
+	}
+	
+	.price {
+		flex: 1;
+		color: #fe1a35;
+	}
+	
+	.price .bouns {
+		margin-left: 15px;
+		color: #999999;
+	}
+	
+	.share-list .right .bouns {
+		margin-left: ;
+	}
+</style>
+<div class="cash-wrapper">
+	<div class="item">
+		<div class="title">返利奖金</div>
+		<div class="value">{$member['credit2']}</div>
+		<div class="text">
+			<div class="title">成功提现奖金</div>
+			<div class="value">{$fcash}</div>
+		</div>
+	</div>
+	<div class="item">
+		<div class="title">分享奖金</div>
+		<div class="value">{$member['commission_total']}</div>
+		<div class="text">
+			<div class="title">成功提现奖金</div>
+			<div class="value">{php echo number_format($member['commission_pay'],2)}</div>
+		</div>
+	</div>
+	<div class="item">
+		<div class="title">分红奖金</div>
+		<div class="value">{$member['money']}</div>
+		<div class="text">
+			<div class="title">成功提现奖金</div>
+			<div class="value">{$fredcash}</div>
+		</div>
+	</div>
+</div>
+<div class="share-list">
+	<div class="fl left">
+		累计奖金
+	</div>
+	<div class="fl right fs">
+		<span class="price">{php echo $this->model->allmoney($member['commission_total'])}<span class="bouns">所有奖金</span></span>
+		<i class="iconfont"></i>
+	</div>
+</div>
+<div class="share-list">
+	<div class="fl left">
+		已申请奖金
+	</div>
+	<div class="fl right fs">
+		<span class="price">{php echo number_format($member['commission_apply'],2)+$fscash+$fsredcash}<span class="bouns">已申请奖金</span></span>
+		<i class="iconfont"></i>
+	</div>
+</div>
+<div class="share-list">
+	<div class="fl left">
+		已通过奖金
+	</div>
+	<div class="fl right fs">
+		<span class="price">{php echo number_format($member['commission_check'],2)+$fcash+$fredcash}<span class="bouns">审核通过的奖金</span></span>
+		<i class="iconfont"></i>
+	</div>
+</div>
+<div class="cash-tips">
+	
+		    {if $this->set['settledays']>0}
+		    
+		    	<p style="margin-bottom: 16px;">买家确认收货后，立即获得推广奖金，{php echo $this->set['settledays']}天后即可提现</p>
+
+		    {else}
+		    	<p style="margin-bottom: 16px;">买家确认收货后，立即获得{php echo $this->set['texts']['commission1']}</p>
+		    {/if}	
+	
+
+	<p>注意：可用奖金满<span class="price">{php echo $this->set['withdraw']}</span>元后才能申请提现</p>
+</div>
+<div style="padding: 16px 12px;">
+	<a class="btn btn-primary" onclick="window.location.href='{php echo mobileUrl('member/withdraw')}&type=1'" >返利提现</a><br />
+	<a class="btn btn-primary" {if !$cansettle}onclick="Tools.toast('满 {php echo $this->set['withdraw']}元才能提现');"{else}onclick="window.location.href='{php echo mobileUrl('commission/apply')}'"{/if} >分享提现</a><br />
+	<a class="btn btn-primary" onclick="window.location.href='{php echo mobileUrl('member/withdraw')}&type=2'" >分红提现</a>
+</div>
+<script src="/haoge/js/jquery-1.12.4.min.js"></script>
+<script src="/haoge/js/tools.js"></script>
+<script src="/haoge/js/iscroll.js"></script>
+<script src="/haoge/js/common.js"></script>	
+</body>
+</html>

@@ -1,0 +1,93 @@
+{template '_header2'}
+<script type="text/javascript">
+	document.title = '财富中心';
+</script>
+<div class="share-head">
+	<div class="head">
+		<img class="block" width="70" height="70" src="{$member['avatar']}" />
+	</div>
+	<div class="text">
+		<p class="title">{$member['nickname']}</p>
+		<p class="sub-title">[{$member['groupname']}]</p>
+	</div>
+	<div class="number">累计佣金：{php echo $this->model->allmoney($member['commission_total'])}</div>
+</div>
+<div class="share-title-item clearfix">
+	<span class="fl">可提现佣金：<span class="price">{php echo $this->model->cancash($member['commission_ok'])}</span>元</span>
+	<span class="fr" onclick="window.location.href='{php echo mobileUrl('commission/cash')}'"   >提现 >></span>
+</div>
+<div class="share-list" onclick="window.location.href='{php echo mobileUrl('commission/withdraw')}'">
+	<div class="fl left">
+		<i class="iconfont icon-tuiguangyongjin-"></i>推广佣金
+	</div>
+	<div class="fl right fs">
+		<span class="sb">推广佣金</span>
+		<i class="iconfont icon-xiala-"></i>
+	</div>
+</div>
+<div class="share-list" onclick="window.location.href='{php echo mobileUrl('commission/order')}'">
+	<div class="fl left" >
+		<i class="iconfont icon-yongjinmingxi-"></i>佣金明细
+	</div>
+	<div class="fl right fs">
+		<span class="sb">佣金明细</span>
+		<i class="iconfont icon-xiala-"></i>
+	</div>
+</div>
+<div class="share-list" id="wdhb">
+	<div class="fl left" >
+		<i class="iconfont icon-wodehaibao-"></i>我的海报
+	</div>
+	<div class="fl right fs">
+		<span class="sb">推广海报</span>
+		<i class="iconfont icon-xiala-"></i>
+	</div>
+</div>
+
+<div class="share-list" onclick="window.location.href='{php echo mobileUrl('commission/rank')}'">
+	<div class="fl left" >
+		<i class="iconfont icon-wodehaibao-"></i>分销排行
+	</div>
+	<div class="fl right fs">
+		<span class="sb">分销排行</span>
+		<i class="iconfont icon-xiala-"></i>
+	</div>
+</div>
+
+<div class="share-bot-wrapper">
+	我的推荐码 : <span id="copy-text">{$member['invitecode']}</span><input type="hidden" readonly value="{$agentid}" onfocus="this.blur()" />
+	<a href="javascript:;" onclick="copyToClipboard('copy-text')" class="copy-btn">点击复制</a>
+</div>
+
+<script src="/haoge/js/jquery-1.12.4.min.js"></script>
+<script src="/haoge/js/swiper-3.4.2.min.js"></script>
+<script src="/haoge/js/tools.js"></script>
+<script src="/haoge/js/iscroll.js"></script>
+<script src="/haoge/js/common.js"></script>
+<script type="text/javascript">
+	function copyToClipboard(elementId) {
+      var aux = document.createElement("input");
+      var content = document.getElementById(elementId).innerHTML || document.getElementById(elementId).value;
+      aux.setAttribute("value", content);
+      document.body.appendChild(aux);
+      aux.select();
+      document.execCommand("copy");
+      document.body.removeChild(aux);
+      
+      Tools.toast('复制成功！直接粘贴即可');
+    }
+	$('#wdhb').click(function(){
+		var url="{php echo mobileUrl('member/qrcode')}";
+		var ismember={$member['ismember']};
+		if(ismember!=1){
+			Tools.toast('首次购买订单金额大于500元开启');
+		}
+		else{
+			window.location.href=url;
+		}
+	});	
+	
+</script>
+</body>
+
+</html>

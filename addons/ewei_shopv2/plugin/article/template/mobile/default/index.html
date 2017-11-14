@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="/haoge/css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="/haoge/css/icon.css" />
+		<link rel="stylesheet" type="text/css" href="/haoge/css/public.css" />
+		<link rel="stylesheet" type="text/css" href="/haoge/css/layout.css" />
+		<script language="javascript" src="/haoge/sbjs/require.js"></script>
+		<script language="javascript" src="/haoge/sbjs/config.js"></script>
+		<title>培训学院</title>
+		<style type="text/css">
+			.banner {
+				position: relative;
+			}
+			
+			.article-wrapper {
+				padding: 1px 20px 42px 20px;
+			}
+			
+			.list-item {
+				margin: 10px 0;
+				padding: 6px 6px 18px 6px;
+				background: #fff;
+			}
+			
+			.banner .text {
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				width: 100%;
+				padding: 0 15px;
+				box-sizing: border-box;
+				line-height: 25px;
+				height: 25px;
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+				color: #fff;
+				background: rgba(0, 0, 0, .3);
+				font-size: 14px;
+			}
+			
+			.content {
+				padding-top: 18px;
+				font-size: 13px;
+				line-height: 20px;
+			}
+			
+			.content a.link {
+				color: #cf1c1c;
+				font-size: 14px;
+				text-decoration: underline;
+			}
+			
+			.flex-btn-wrapper {
+				position: fixed;
+				bottom: 0;
+				width: 100%;
+				display: flex;
+				display: -webkit-flex;
+				border-top: 1px solid #d0d0d0;
+			}
+			
+			.flex-btn-wrapper .item {
+				position: relative;
+				flex: 1;
+				-webkit-flex: 1;
+				line-height: 42px;
+				background-color: #fff;
+				border-right: 1px solid #d0d0d0;
+				color: #333;
+				text-align: center;
+				font-size: 14px;
+			}
+			
+			.flex-btn-wrapper .item .list {
+				position: absolute;
+				left: 0;
+				top: -8px;
+				width: 100%;
+				z-index: -1;
+			}
+			
+			.flex-btn-wrapper .item .list::after {
+				content: '';
+				display: inline;
+				position: absolute;
+				bottom: -5px;
+				margin-left: -5px;
+				border-left: 5px solid transparent;
+				border-right: 5px solid transparent;
+				border-top: 5px solid #fff;
+			}
+			
+			.flex-btn-wrapper .item.active,
+			.flex-btn-wrapper .item .list li.active {
+				background-color: #cf1c1c;
+				color: #fff;
+			}
+			
+			.flex-btn-wrapper .item:last-child {
+				border-right: none;
+			}
+			
+			.flex-btn-wrapper .item .list {
+				transform: translate3d(0, 0, 0) scaleY(0) rotateX(90deg);
+				-webkit-transform: translate3d(0, 0, 0) scaleY(0) rotateX(90deg);
+				transition: all .2s linear;
+				-webkit-transition: all .2s linear;
+				transform-origin: bottom;
+				-webkit-transform-origin: bottom;
+			}
+			
+			.flex-btn-wrapper .item .list.move {
+				transform: translate3d(0, -100%, 0) scaleY(1) rotateX(0);
+				-webkit-transform: translate3d(0, -100%, 0) scaleY(1) rotateX(0);
+			}
+			
+			.flex-btn-wrapper .item .list li {
+				background-color: #fff;
+				color: #333333;
+				border-bottom: 1px solid #d0d0d0;
+			}
+			
+			.flex-btn-wrapper .item .list {
+				border-width: 1px 1px 0 1px;
+				border-style: solid;
+				border-color: #d0d0d0;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="article-wrapper">
+
+			<div id="alllist">
+				<script id='list' type='text/html'>
+					<%each list as g %>
+					<div class="list-item">
+						<div class="banner">
+							<img   onclick="window.location.href='{php echo mobileurl('article/report');}&aid=<%g.id%>'" class="img" src="<%g.resp_img%>" />
+							<p class="text"><%g.article_title%></p>
+						</div>
+						<div class="content">
+							<%g.resp_desc%>
+							<a class="link" href="{php echo mobileurl('article/report');}&aid=<%g.id%>">查看详情</a>
+						</div>
+					</div>
+					<%/each%>
+				</script>
+			</div>
+
+		</div>
+		<div class="flex-btn-wrapper">
+			{loop  $category $item}			
+				<div class="item" cate='{$item['id']}'>
+					<div class="title" >{$item['category_name']}</div>
+					{php $list=pdo_getall('ewei_shop_article_category',array('uid'=>$item['id']));}
+					<ul class="list">
+						{loop  $list  $sitem}
+							<li cate='{$sitem['id']}'>{$sitem['category_name']}</li>
+						{/loop}
+					</ul>
+				</div>
+			{/loop}			
+
+
+
+		</div>
+		<div id="empty" class="hide">
+			<div class="empty-wrap empty-data">
+				<img src="/haoge/img/empty_data.png">
+				<p>以科技改善健康，用知识迭代生活</p>
+			</div>
+		</div>
+		<script src="/haoge/js/common.js"></script>
+		<script src="/haoge/js/jquery-1.12.4.min.js"></script>
+		<script type="text/javascript">
+			require(['jquery', 'tpl', 'core'], function(jquery, tpl, core) {
+				$(function() {
+					var cate=0;
+					var page=1;
+					
+					//获取默认首页
+					getlist();
+				
+					//加载指定分类的数据
+					function  getlist(){
+						$.post(window.location.href,{cate:cate,page:page},function(data){
+								data=eval("("+data+")");
+								console.log(data)
+								if(page==1){
+									if(data.status==1){
+										hideEmpty()
+										$('#alllist').html(  tpl('list',data.result) );												
+									}
+									else
+									{
+										$('#alllist').html(  tpl('list',data.result) );	
+										showEmpty();
+									}
+								}
+								else
+								{
+									if(data.status==1){
+										hideEmpty()	
+										$('#alllist').append(  tpl('list',data.result) );	
+									}
+									else
+									{
+										$('#alllist').append(  tpl('list',data.result) );
+										//showEmpty();
+									}
+								}
+								page++;
+						});
+					}
+					
+
+					var items = $('.flex-btn-wrapper').find('.item');
+					items.click(function(e) {
+						cate=$(this).attr('cate');
+						console.log(cate);
+						var $this = $(this);
+						var $list = $this.find('.list');
+						$(document).on('click', function() {
+							hide();
+						})
+
+						items.find('li').unbind().bind('click', function(event) {
+							cate=$(this).attr('cate');
+							page=1;
+							event.stopPropagation();
+							hide();
+							$(this).addClass('active');
+							getlist();
+							console.log(cate);
+						});
+						e.stopPropagation();
+						if($list.hasClass('move')) {
+							hide();
+						} else {
+							show();
+							$this.siblings().removeClass('active').find('.list').removeClass('move');
+						}
+
+						function hide() {
+							$this.removeClass('active');
+							$list.removeClass('move');
+							setTimeout(function() {
+								$list.find('li').removeClass('active');
+								//跳转链接
+							}, 200);
+						}
+
+						function show() {
+							$this.addClass('active');
+							$list.addClass('move');
+						}
+
+					})
+					
+					
+					
+					//下拉加载
+					infinite(function(){
+						getlist();
+					});
+
+				})
+
+			});
+		</script>
+	</body>
+
+</html>

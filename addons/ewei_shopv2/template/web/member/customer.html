@@ -1,0 +1,58 @@
+{template '_header'}
+
+
+<div class="page-heading"> 
+	<h2>{$oneres['nickname']}的下线 <small> 总人数: <span class='text-danger'>{php   echo count($list);}</span></small></small> <button class="btn btn-default btn-sm"  type="button" data-toggle='refresh'><i class='fa fa-refresh'></i></button></h2> 
+</div>
+
+<form action="./index.php" method="get" class="form-horizontal table-search"  role="form">
+	<input type="hidden" name="c" value="site" />
+	<input type="hidden" name="a" value="entry" />
+	<input type="hidden" name="m" value="ewei_shopv2" />
+	<input type="hidden" name="do" value="web" />
+	<input type="hidden" name="r"  value="lottery.log" />
+	<input type="hidden" name="id" value="{$_GPC['id']}" />
+
+</form>
+
+
+<form action="" method="post" onsubmit="return formcheck(this)">
+
+	{if count($list)>0}
+	<table class="table table-responsive">
+		<thead>
+			<tr>
+				<th style='width:100px;'>会员</th>
+				<th>团队业绩(上月)</th>
+				<th>个人业绩(上月)</th>		
+				<th>团队业绩(本月)</th>
+				<th>个人业绩(本月)</th>					
+				<th>加入时间</th>
+			</tr>
+		</thead> 
+		<tbody>  
+			{loop $list $row}
+			<tr>
+				
+				<td><span data-toggle='tooltip'><img src='{$row['avatar']}' style='width:20px;height:20px;padding1px;border:1px solid #ccc' /> {$row['nickname']}</span></td>
+				<td>{$row['TeamM1']}</td>
+				<td>{$row['PerM1']}</td>				
+				<td>{$row['TeamM2']}</td>
+				<td>{$row['PerM2']}</td>
+				<td>{$row['createtime']}</td>				
+				<td><a class='btn btn-default' href="{php echo webUrl('member/list/detail',array('id'=>$row['id']));}" title='查看用户信息'><i class='fa fa-user'></i></a> - <a class='btn btn-default' href="{php echo webUrl('member/customer',array('id' => $row['id']));}" title='查看他的下线'><i class='fa fa-user-plus'></i></a></td>
+			</tr>
+			{/loop}
+		</tbody>
+	</table>
+	{$pager}
+	{else}
+	<div class='panel panel-default'>
+		<div class='panel-body' style='text-align: center;padding:30px;'>
+			暂时没有任何记录!
+		</div>
+	</div>
+
+	{/if}
+</form>
+{template '_footer'}
